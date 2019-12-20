@@ -48,9 +48,28 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 		NULL);*/                //指向窗口的创建数据
 
 	playButtonInit(hWin, hInstance);
+	//nextButtonInit(hWin, hInstance);
 
 	ShowWindow(hWin, nCmdShow);  //显示窗口
 }
+
+
+//void nextButtonInit(HWND hParent, HINSTANCE hInstance) 
+//{
+//	HWND hPlayBtn = CreateWindow(
+//		CLASS_MYBUTTON,
+//		NULL,
+//		WS_CHILD | WS_VISIBLE,
+//		POS_X_PLAY_BUTTON,
+//		POS_Y_PLAY_BUTTON,
+//		WIDTH_PLAY_BUTTON,
+//		HEIGHT_PLAY_BUTTON,
+//		hParent,
+//		NULL,
+//		hInstance,
+//		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
+//	);
+//}
 
 
 void playButtonInit(HWND hParent, HINSTANCE hInstance)
@@ -65,7 +84,7 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 	
 	//未播放用的一套动画
 	//静态
-	btnBmp->bmps[BMP_STATIC] = LoadImage(0, BMP_PAUSE_HOVER_PLAY_BUTTON, IMAGE_BITMAP, 
+	btnBmp->bmps[BMP_STATIC] = LoadImage(0, BMP_PAUSE_STATIC_PLAY_BUTTON, IMAGE_BITMAP, 
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
 
 	//鼠标悬停
