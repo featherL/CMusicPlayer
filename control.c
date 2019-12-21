@@ -2,9 +2,10 @@
 #include "view.h"
 #include <stdlib.h>
 
-//static属性让以下两个全局变量，仅在该文件可见
+//static属性让全局变量，仅在该文件可见
 static Handler g_handlers[MAX_LEN_FOR_HANDLER];  //存储控件的回调函数及其句柄
 static int g_lenOfHandlers = 0;  //g_handlers数组元素的个数
+
 
 //窗口过程函数
 LRESULT CALLBACK windowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
@@ -13,11 +14,28 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	HWND hControl;  //控件句柄
 	CallBackFunc func;  //控件的事件处理函数
 
-	PAINTSTRUCT ps;
-	HDC hdc;
+	POINT point;
+	RECT rect;
 
 	switch(uMsg)
 	{
+	case WM_NCHITTEST:  //鼠标点击测试事件（可用于实现窗口拖动）
+		//鼠标点击的坐标
+		point.x = GET_X_LPARAM(lParam);
+		point.y = GET_Y_LPARAM(lParam);
+		ScreenToClient(hwnd, &point);  //讲坐标转换成相对于窗口客户区的坐标
+
+		//获取窗口客户区矩形区域
+		GetClientRect(hwnd, &rect);
+
+		if(point.y >= rect.top && point.y < rect.top + MOVE_WINDOW_HEIGHT)
+		{ //顶部高度为MOVE_WINDOW_HEIGHT的区域用于移动窗口
+			return HTCAPTION;
+		}
+		else
+		{ //其它区域认为是客户区域的点击
+			return HTCLIENT;   
+		}
 	case WM_DESTROY:
 		//窗口销毁消息
 		PostQuitMessage(0);
@@ -29,17 +47,11 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		func = getCallBackFunc(hControl);  //获取该控件的事件处理函数
 		if(func != NULL)
-			return func(hControl, code);
+			return func(hControl, code);  //调用函数处理控件的事件
 		else
 			return DefWindowProc(hwnd, uMsg, wParam, lParam);
-	case WM_PAINT:
-		//窗口重绘消息
-		hdc = BeginPaint(hwnd, &ps);
-		FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW));
-		EndPaint(hwnd, &ps);
-		break;
 	default:
-		return DefWindowProc(hwnd, uMsg, wParam, lParam);  //默认的回调函数
+		return DefWindowProc(hwnd, uMsg, wParam, lParam);  //默认的窗口过程函数
 	}
 
 	return 0;  //正常退出
@@ -61,7 +73,6 @@ void eventLoop()
 		{
 			//检查当前歌曲是否播放完毕
 			//如果播放完毕，播放下一首
-			
 		}
 	}
 }
@@ -90,6 +101,6 @@ void bindCallBackFunc(HWND hwnd, CallBackFunc func)
 	}
 	else
 	{//数组超过上限
-		exit(0);
+		exit(0); 
 	}
 }

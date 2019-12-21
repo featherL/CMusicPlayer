@@ -12,12 +12,15 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 	buttonInit();  //注册自定义的按钮类
 
 
-	WNDCLASS wc = { 0 };
+	WNDCLASSEX wc = { 0 };
+	wc.hCursor = LoadCursor(0, IDC_ARROW);  //光标的样式
+	wc.cbSize = sizeof(WNDCLASSEX);  //结构体的大小
+	wc.hbrBackground = (HBRUSH)GetStockBrush(BLACK_BRUSH);  //背景黑色
 	wc.lpfnWndProc = windowProc;  //窗口过程函数
 	wc.hInstance = hInstance;
 	wc.lpszClassName = CLASS_NAME;  //窗口类名
 
-	RegisterClass(&wc);
+	RegisterClassEx(&wc);
 
 	HWND hWin = CreateWindow(
 		CLASS_NAME,           // 窗口类名

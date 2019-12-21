@@ -15,8 +15,11 @@ extern ButtonBmp* g_prevBtnBmp;
 
 //----------------
 //主窗口的大小
-#define WINDOW_WIDTH 800
+#define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 600
+
+//用于拖动窗口的顶部区域的高度
+#define MOVE_WINDOW_HEIGHT 64
 
 
 //-----------------------------------
