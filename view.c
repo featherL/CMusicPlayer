@@ -139,7 +139,7 @@ void xButtonInit(HWND hParent, HINSTANCE hInstance)
 	);
 
 
-	//bindCallBackFunc(hXBtn, func);            
+	bindCallBackFunc(hXBtn, quitBtnHandler);            
 }
 
 
@@ -252,6 +252,9 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 
 	g_playBtnBmp2->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_PLAY_HOVER_PLAY_BUTTON, IMAGE_BITMAP,
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
+
+	g_playBtnBmp2->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_MOUSE_DOWN_PLAY_BUTTON, IMAGE_BITMAP,
+		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);  //这张图和第一套的一样
 
 
 	HWND hPlayBtn = CreateWindow(

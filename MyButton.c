@@ -75,6 +75,9 @@ LRESULT CALLBACK buttonProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		//模仿win32自带的按钮控件发送点击消息到父窗口
 		SendMessage(btnData->hParent, WM_COMMAND, MAKEWPARAM(0, BN_CLICKED), (LPARAM)hwnd);
 		break;
+	case WM_DESTROY:
+		buttonOnDestroy(hwnd);  //释放分配的资源
+		break;
 	default:
 		return DefWindowProc(hwnd, uMsg, wParam, lParam);
 	}
@@ -82,6 +85,7 @@ LRESULT CALLBACK buttonProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+//窗口创建后，保存传递过来的参数等等
 void buttonOnCreate(HWND hwnd, LPARAM lParam)
 {
 	ButtonData* btnData = (ButtonData*)malloc(sizeof(ButtonData));  //分配空间存数据
@@ -100,6 +104,20 @@ void buttonOnCreate(HWND hwnd, LPARAM lParam)
 	
 	//保存btnData指针
 	SetWindowLong(hwnd, GWL_USERDATA, (LONG)btnData);
+}
+
+//窗口销毁时，做一些资源释放的操作
+void buttonOnDestroy(HWND hwnd)
+{
+	ButtonData* btnData = getButtonData(hwnd);
+
+	//释放设备上下文
+	DeleteDC(btnData->compatibleHdc); 
+	ReleaseDC(hwnd, btnData->controlHdc);  
+
+	//btnData->buttonBmp这个指针是创建窗口传入的，应该由外面释放
+
+	free(btnData);  //释放这个结构体的资源
 }
 
 //绘制按钮

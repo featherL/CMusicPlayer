@@ -9,6 +9,7 @@
 */
 
 extern ButtonBmp* g_playBtnBmp;
+extern ButtonBmp* g_playBtnBmp2;
 extern ButtonBmp* g_nextBtnBmp;
 extern ButtonBmp* g_prevBtnBmp;
 extern ButtonBmp* g_xBtnBmp;

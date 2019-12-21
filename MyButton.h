@@ -54,6 +54,9 @@ LRESULT CALLBACK buttonProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 //窗口创建后，保存传递过来的参数等等
 void buttonOnCreate(HWND hwnd, LPARAM lParam);
 
+//窗口销毁时，做一些资源释放的操作
+void buttonOnDestroy(HWND hwnd);
+
 //绘制按钮
 void buttonPaint(HWND hwnd, ButtonData* btnData);
 
@@ -68,4 +71,5 @@ void buttonOnMouseUp(HWND hwnd, ButtonData* btnData);
 
 //鼠标离开按钮后要把按钮样子恢复
 void buttonOnMouseLeave(HWND hwnd, ButtonData* btnData);
+
 
