@@ -4,6 +4,8 @@ ButtonBmp* g_playBtnBmp = NULL;  //播放按钮的相关图片
 ButtonBmp* g_playBtnBmp2 = NULL;  //暂停按钮的相关图片
 ButtonBmp* g_nextBtnBmp = NULL;  //下一首按钮的相关图片
 ButtonBmp* g_prevBtnBmp = NULL;  //上一首按钮的相关图片
+ButtonBmp* g_xBtnBmp = NULL;  //退出按钮的相关图片
+ButtonBmp* g_modeBtnBmp = NULL;  //模式按钮的相关图片
 
 
 //初始化窗口
@@ -49,11 +51,92 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 		(HINSTANCE)GetWindowLong(hWin, GWLP_HINSTANCE),      //应用程序实例的句柄
 		NULL);*/                //指向窗口的创建数据
 
-	playButtonInit(hWin, hInstance);
-	nextButtonInit(hWin, hInstance);
-	prevButtonInit(hWin, hInstance);
+	playButtonInit(hWin, hInstance);        //播放按钮
+	nextButtonInit(hWin, hInstance);        //下一首按钮
+	prevButtonInit(hWin, hInstance);        //上一首按钮
+	xButtonInit(hWin, hInstance);           //关闭窗口按钮
+	modeButtonInit(hWin, hInstance);        //模式按钮
 
 	ShowWindow(hWin, nCmdShow);  //显示窗口
+}
+
+
+void modeButtonInit(HWND hParent, HINSTANCE hInstance)
+{
+	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
+
+	g_modeBtnBmp = btnBmp;
+
+	//加载图片资源
+
+	//静态
+	btnBmp->bmps[BMP_STATIC] = LoadImage(0, BMP_STATIC_MODE_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+
+	//鼠标悬停
+	btnBmp->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_HOVER_MODE_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+
+	//鼠标按下
+	btnBmp->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_DOWN_MODE_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+
+
+	HWND hModeBtn = CreateWindow(
+		CLASS_MYBUTTON,
+		NULL,
+		WS_CHILD | WS_VISIBLE,
+		POS_X_MODE_BUTTON,
+		POS_Y_MODE_BUTTON,
+		WIDTH_MODE_BUTTON,
+		HEIGHT_MODE_BUTTON,
+		hParent,
+		NULL,
+		hInstance,
+		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
+	);
+
+	//bindCallBackFunc(hModeBtn, func); 
+}
+
+
+void xButtonInit(HWND hParent, HINSTANCE hInstance)
+{
+	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
+
+	g_xBtnBmp = btnBmp;
+
+	//加载图片资源
+
+	//静态
+	btnBmp->bmps[BMP_STATIC] = LoadImage(0, BMP_STATIC_X_BUTTON, IMAGE_BITMAP,
+		WIDTH_X_BUTTON, HEIGHT_X_BUTTON, LR_LOADFROMFILE);
+
+	//鼠标悬停
+	btnBmp->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_HOVER_X_BUTTON, IMAGE_BITMAP,
+		WIDTH_X_BUTTON, HEIGHT_X_BUTTON, LR_LOADFROMFILE);
+
+	//鼠标按下
+	btnBmp->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_DOWN_X_BUTTON, IMAGE_BITMAP,
+		WIDTH_X_BUTTON, HEIGHT_X_BUTTON, LR_LOADFROMFILE);
+
+
+	HWND hXBtn = CreateWindow(
+		CLASS_MYBUTTON,
+		NULL,
+		WS_CHILD | WS_VISIBLE,
+		POS_X_X_BUTTON,
+		POS_Y_X_BUTTON,
+		WIDTH_X_BUTTON,
+		HEIGHT_X_BUTTON,
+		hParent,
+		NULL,
+		hInstance,
+		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
+	);
+
+
+	//bindCallBackFunc(hXBtn, func);            
 }
 
 
@@ -91,6 +174,8 @@ void prevButtonInit(HWND hParent, HINSTANCE hInstance)
 		hInstance,
 		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
 	);
+
+	//bindCallBackFunc(hPrevBtn, func); 
 }
 
 
@@ -128,6 +213,8 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance)
 		hInstance,
 		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
 	);
+
+	//bindCallBackFunc(hNextBtn, func); 
 }
 
 
@@ -180,5 +267,5 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 
 
 	//绑定按钮点击事件
-
+	//bindCallBackFunc(hPlayBtn, func); 
 }
