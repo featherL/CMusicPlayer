@@ -29,7 +29,7 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 		WINDOW_TITLE,         // 窗口标题
 		WS_POPUP,  // 窗口样式：没有标题栏，没有边框（不可调整大小）
 		// 窗口位置（默认），窗口大小
-		CW_USEDEFAULT, CW_USEDEFAULT, WINDOW_WIDTH, WINDOW_HEIGHT,
+		400, 200, WINDOW_WIDTH, WINDOW_HEIGHT,
 		NULL,       // 父窗口
 		NULL,       // 菜单
 		hInstance,  // 程序的实例句柄
