@@ -11,6 +11,8 @@
 extern ButtonBmp* g_playBtnBmp;
 extern ButtonBmp* g_nextBtnBmp;
 extern ButtonBmp* g_prevBtnBmp;
+extern ButtonBmp* g_xBtnBmp;
+extern ButtonBmp* g_modeBtnBmp;
 
 
 //----------------
@@ -24,13 +26,14 @@ extern ButtonBmp* g_prevBtnBmp;
 
 //-----------------------------------
 //控件用的图片路径，位置，大小
+
 //播放暂停按钮 未播放时，播放时，未播放鼠标在上方时，播放鼠标在上方时，鼠标按下时
-#define BMP_PAUSE_STATIC_PLAY_BUTTON L"images\\playButton\\1-1.bmp" 
+#define BMP_PAUSE_STATIC_PLAY_BUTTON L"images\\playButton\\1-1.bmp"
 #define BMP_PLAY_STATIC_PLAY_BUTTON L"images\\playButton\\1-2.bmp" 
 #define BMP_PAUSE_HOVER_PLAY_BUTTON L"images\\playButton\\2-1.bmp"
 #define BMP_PLAY_HOVER_PLAY_BUTTON L"images\\playButton\\2-2.bmp"
 #define BMP_MOUSE_DOWN_PLAY_BUTTON L"images\\playButton\\3.bmp" 
-#define POS_X_PLAY_BUTTON 200
+#define POS_X_PLAY_BUTTON 180
 #define POS_Y_PLAY_BUTTON 520
 #define WIDTH_PLAY_BUTTON 64
 #define HEIGHT_PLAY_BUTTON 64
@@ -39,7 +42,7 @@ extern ButtonBmp* g_prevBtnBmp;
 #define BMP_STATIC_NEXT_BUTTON L"images\\nextButton\\1.bmp"
 #define BMP_HOVER_NEXT_BUTTON L"images\\nextButton\\2.bmp"
 #define BMP_DOWN_NEXT_BUTTON L"images\\nextButton\\3.bmp"
-#define POS_X_NEXT_BUTTON 300
+#define POS_X_NEXT_BUTTON 260
 #define POS_Y_NEXT_BUTTON 520
 #define WIDTH_NEXT_BUTTON 64
 #define HEIGHT_NEXT_BUTTON 64
@@ -52,6 +55,24 @@ extern ButtonBmp* g_prevBtnBmp;
 #define POS_Y_PREV_BUTTON 520
 #define WIDTH_PREV_BUTTON 64
 #define HEIGHT_PREV_BUTTON 64
+
+//退出按钮
+#define BMP_STATIC_X_BUTTON L"images\\xButton\\1.bmp"
+#define BMP_HOVER_X_BUTTON L"images\\xButton\\2.bmp"
+#define BMP_DOWN_X_BUTTON L"images\\xButton\\3.bmp"
+#define WIDTH_X_BUTTON 32
+#define HEIGHT_X_BUTTON 32
+#define POS_X_X_BUTTON (WINDOW_WIDTH-WIDTH_X_BUTTON)
+#define POS_Y_X_BUTTON 0
+
+//模式按钮
+#define BMP_STATIC_MODE_BUTTON L"images\\modeButton\\1-1.bmp"
+#define BMP_HOVER_MODE_BUTTON L"images\\modeButton\\1-2.bmp"
+#define BMP_DOWN_MODE_BUTTON L"images\\modeButton\\1-2.bmp"
+#define POS_X_MODE_BUTTON 20
+#define POS_Y_MODE_BUTTON 520
+#define WIDTH_MODE_BUTTON 64
+#define HEIGHT_MODE_BUTTON 64
 //--------------------------
 
 
@@ -72,3 +93,9 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance);
 
 //创建prev按钮
 void prevButtonInit(HWND hParent, HINSTANCE hInstance);
+
+//创建x按钮
+void xButtonInit(HWND hParent, HINSTANCE hInstance);
+
+//创建模式按钮
+void modeButtonInit(HWND hParent, HINSTANCE hInstance);
