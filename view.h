@@ -73,7 +73,7 @@ extern ButtonBmp* g_modeBtnBmp;
 //Ä£Ê½°´Å¥
 #define BMP_STATIC_MODE_BUTTON L"images\\modeButton\\1-1.bmp"
 #define BMP_HOVER_MODE_BUTTON L"images\\modeButton\\1-2.bmp"
-#define BMP_DOWN_MODE_BUTTON L"images\\modeButton\\1-2.bmp"
+#define BMP_DOWN_MODE_BUTTON L"images\\modeButton\\1-3.bmp"
 #define POS_X_MODE_BUTTON 20
 #define POS_Y_MODE_BUTTON 520
 #define WIDTH_MODE_BUTTON 64
