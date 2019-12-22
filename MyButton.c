@@ -180,5 +180,3 @@ void buttonOnMouseLeave(HWND hwnd, ButtonData* btnData)
 
 	BitBlt(btnData->controlHdc, 0, 0, width, height, btnData->compatibleHdc, 0, 0, SRCCOPY);
 }
-
-

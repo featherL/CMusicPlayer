@@ -4,6 +4,10 @@
 #include "control.h"
 #include "MyButton.h"
 
+//windows提供控件的库
+#include <CommCtrl.h>
+#pragma comment(lib, "comctl32.lib")
+
 /*
 该模块负责窗口的初始化以及画面的显示
 */
