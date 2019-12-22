@@ -12,6 +12,7 @@ ButtonBmp* g_modeBtnBmp = NULL;  //模式按钮的相关图片
 void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 {
 	buttonInit();  //注册自定义的按钮类
+	InitCommonControls();  //初始化window提供的控件
 
 
 	WNDCLASSEX wc = { 0 };
@@ -39,27 +40,12 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 	if(hWin == NULL)
 		exit(0);
 
-
-	//创建一个按钮
-	/*HWND hButton = CreateWindow(
-		CLASS_MY_BUTTON,//
-		L"|<",                  //文本内容
-		WS_CHILD | WS_VISIBLE,
-		CW_USEDEFAULT,          //水平位置
-		CW_USEDEFAULT,			//垂直位置
-		50,						//宽度
-		50,						//高度
-		hWin,                   //父窗口句柄
-		NULL,                   //菜单的句柄或是子窗口的标识符
-		(HINSTANCE)GetWindowLong(hWin, GWLP_HINSTANCE),      //应用程序实例的句柄
-		NULL);*/                //指向窗口的创建数据
-
 	playButtonInit(hWin, hInstance);        //播放按钮
 	nextButtonInit(hWin, hInstance);        //下一首按钮
 	prevButtonInit(hWin, hInstance);        //上一首按钮
 	xButtonInit(hWin, hInstance);           //关闭窗口按钮
 	modeButtonInit(hWin, hInstance);        //模式按钮
-
+	songListInit(hWin, hInstance);			//歌曲列表
 
 	ShowWindow(hWin, nCmdShow);  //显示窗口
 }
@@ -89,7 +75,7 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 	HWND hModeBtn = CreateWindow(
 		CLASS_MY_BUTTON,
 		NULL,
-		WS_CHILD | WS_VISIBLE,
+		WS_CHILD | WS_VISIBLE,  //WS_CHILD表示这个窗口是某个窗口的子窗口，WS_VISIBLE表示窗口可见（不设置将会不显示）
 		POS_X_MODE_BUTTON,
 		POS_Y_MODE_BUTTON,
 		WIDTH_MODE_BUTTON,
@@ -275,4 +261,44 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 
 	//绑定按钮点击事件
 	//bindCallBackFunc(hPlayBtn, func); 
+}
+
+void songListInit(HWND hParent, HINSTANCE hInstance)
+{
+	HWND hSongList = CreateWindow(
+		WC_LISTVIEW,
+		NULL,
+		WS_CHILD |WS_VISIBLE | LVS_REPORT ,
+		POS_X_SONG_LIST,
+		POS_Y_SONG_LIST,
+		WIDTH_SONG_LIST,
+		HEIGHT_SONG_LIST,
+		hParent,
+		NULL,
+		hInstance,
+		NULL
+	);
+
+	//设置列表的列（列表的头）
+	//一共就一项
+	LV_COLUMN   lvc;
+	lvc.mask = LVCF_TEXT | LVCF_WIDTH;
+	lvc.cx = WIDTH_SONG_LIST;
+	lvc.pszText = TEXT_OF_LIST_COLUMN;  //表头文字
+	ListView_InsertColumn(hSongList, 0, &lvc);
+
+
+	LVITEM lvitem;
+	lvitem.mask = LVIF_TEXT | LVIF_TEXT;
+	lvitem.cchTextMax = MAX_PATH;
+	lvitem.iSubItem = 0;
+	lvitem.pszText = L"test";
+
+	
+	for(int i = 0; i < 90; i++)
+	{
+		lvitem.iItem = i;
+		ListView_InsertItem(hSongList, &lvitem);
+		//ListView_SetItemText(hSongList, lvitem.iItem, 0, L"test");
+	}
 }

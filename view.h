@@ -78,6 +78,17 @@ extern ButtonBmp* g_modeBtnBmp;
 #define POS_Y_MODE_BUTTON 520
 #define WIDTH_MODE_BUTTON 64
 #define HEIGHT_MODE_BUTTON 64
+
+//歌曲列表
+#define POS_X_SONG_LIST 20
+#define POS_Y_SONG_LIST 32
+#define WIDTH_SONG_LIST 800
+#define HEIGHT_SONG_LIST 480
+
+//歌曲列表的表头的文字（只有一列）
+#define TEXT_OF_LIST_COLUMN L"歌曲名"
+
+
 //--------------------------
 
 
@@ -115,4 +126,9 @@ void xButtonInit(HWND hParent, HINSTANCE hInstance);
 	//hParent 父窗口句柄
 	//hInstance 程序句柄
 void modeButtonInit(HWND hParent, HINSTANCE hInstance);
+
+//创建歌曲列表
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
+void songListInit(HWND hParent, HINSTANCE hInstance);
 
