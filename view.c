@@ -60,6 +60,7 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 	xButtonInit(hWin, hInstance);           //关闭窗口按钮
 	modeButtonInit(hWin, hInstance);        //模式按钮
 
+
 	ShowWindow(hWin, nCmdShow);  //显示窗口
 }
 

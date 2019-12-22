@@ -13,8 +13,8 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 	{
 	case WM_NCHITTEST:  //鼠标点击测试事件（可用于实现窗口拖动）
 		return winOnNcHitTest(hwnd, lParam);
-	case WM_DESTROY:
-		//窗口销毁消息
+	case WM_NCDESTROY:
+		//窗口销毁消息，WM_NCDESTROY是子窗口都销毁后才触发的
 		winOnDestroy();
 		break;
 	case WM_COMMAND:
