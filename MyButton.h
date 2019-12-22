@@ -45,31 +45,50 @@ typedef struct ButtonData
 void buttonInit();
 
 //获取控件的ButtonData结构体的指针
+	//hwnd按钮句柄
 ButtonData* getButtonData(HWND hwnd);
 
 //控件的过程函数
+	//hwnd按钮句柄
+	//message用来传入消息
+	//wParam保存附加信息
+	//lParam保存附加信息
 LRESULT CALLBACK buttonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 
 //窗口创建后，保存传递过来的参数等等
+	//hwnd按钮句柄
+	//lParam保存附加信息
 void buttonOnCreate(HWND hwnd, LPARAM lParam);
 
 //窗口销毁时，做一些资源释放的操作
+	//hwnd按钮句柄
+	//btnData指向储存按钮控件所有数据的结构体的指针
 void buttonOnDestroy(HWND hwnd, ButtonData* btnData);
 
 //绘制按钮
+	//hwnd按钮句柄
+	//btnData指向储存按钮控件所有数据的结构体的指针
 void buttonPaint(HWND hwnd, ButtonData* btnData);
 
 //鼠标悬停在按钮上绘制的动画
+	//hwnd按钮句柄
+	//btnData指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseHover(HWND hwnd, ButtonData* btnData);
 
 //鼠标按下动画
+	//hwnd按钮句柄
+	//btnData指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseDown(HWND hwnd, ButtonData* btnData);
 
 //鼠标松开动画
+	//hwnd按钮句柄
+	//btnData指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseUp(HWND hwnd, ButtonData* btnData);
 
 //鼠标离开按钮后要把按钮样子恢复
+	//hwnd按钮句柄
+	//btnData指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseLeave(HWND hwnd, ButtonData* btnData);
 
 

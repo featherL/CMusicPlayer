@@ -84,19 +84,33 @@ extern ButtonBmp* g_modeBtnBmp;
 #define WINDOW_TITLE L"CMusicPlayer"
 
 //³õÊ¼»¯´°¿Ú
+	//hInstance³ÌÐò¾ä±ú
+	//£¿£¿£¿£¿£¿
+	//£¿£¿£¿£¿£¿
+	//£¿£¿£¿£¿£¿
 void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow);
 
 //´´½¨²¥·Å°´Å¥
+	//hParent¸¸´°¿Ú¾ä±ú
+	//hInstance³ÌÐò¾ä±ú
 void playButtonInit(HWND hParent, HINSTANCE hInstance);
 
 //´´½¨next°´Å¥
+	//hParent¸¸´°¿Ú¾ä±ú
+	//hInstance³ÌÐò¾ä±ú
 void nextButtonInit(HWND hParent, HINSTANCE hInstance);
 
 //´´½¨prev°´Å¥
+	//hParent¸¸´°¿Ú¾ä±ú
+	//hInstance³ÌÐò¾ä±ú
 void prevButtonInit(HWND hParent, HINSTANCE hInstance);
 
 //´´½¨x°´Å¥
+	//hParent¸¸´°¿Ú¾ä±ú
+	//hInstance³ÌÐò¾ä±ú
 void xButtonInit(HWND hParent, HINSTANCE hInstance);
 
 //´´½¨Ä£Ê½°´Å¥
+	//hParent¸¸´°¿Ú¾ä±ú
+	//hInstance³ÌÐò¾ä±ú
 void modeButtonInit(HWND hParent, HINSTANCE hInstance);
