@@ -7,7 +7,7 @@
 
 
 //类名
-#define CLASS_MYBUTTON L"MYBUTTON"
+#define CLASS_MY_BUTTON L"MY_BUTTON"
 
 
 #define MAX_TEXT_LEN 64
@@ -48,14 +48,14 @@ void buttonInit();
 ButtonData* getButtonData(HWND hwnd);
 
 //控件的过程函数
-LRESULT CALLBACK buttonProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK buttonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 
 //窗口创建后，保存传递过来的参数等等
 void buttonOnCreate(HWND hwnd, LPARAM lParam);
 
 //窗口销毁时，做一些资源释放的操作
-void buttonOnDestroy(HWND hwnd);
+void buttonOnDestroy(HWND hwnd, ButtonData* btnData);
 
 //绘制按钮
 void buttonPaint(HWND hwnd, ButtonData* btnData);

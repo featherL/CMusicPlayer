@@ -126,11 +126,13 @@
     <ClCompile Include="control.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="MyButton.c" />
+    <ClCompile Include="MyListView.c" />
     <ClCompile Include="view.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="control.h" />
     <ClInclude Include="MyButton.h" />
+    <ClInclude Include="MyListView.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -42,7 +42,7 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 
 	//创建一个按钮
 	/*HWND hButton = CreateWindow(
-		CLASS_MYBUTTON,//
+		CLASS_MY_BUTTON,//
 		L"|<",                  //文本内容
 		WS_CHILD | WS_VISIBLE,
 		CW_USEDEFAULT,          //水平位置
@@ -86,7 +86,7 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 
 
 	HWND hModeBtn = CreateWindow(
-		CLASS_MYBUTTON,
+		CLASS_MY_BUTTON,
 		NULL,
 		WS_CHILD | WS_VISIBLE,
 		POS_X_MODE_BUTTON,
@@ -125,7 +125,7 @@ void xButtonInit(HWND hParent, HINSTANCE hInstance)
 
 
 	HWND hXBtn = CreateWindow(
-		CLASS_MYBUTTON,
+		CLASS_MY_BUTTON,
 		NULL,
 		WS_CHILD | WS_VISIBLE,
 		POS_X_X_BUTTON,
@@ -165,7 +165,7 @@ void prevButtonInit(HWND hParent, HINSTANCE hInstance)
 
 
 	HWND hPrevBtn = CreateWindow(
-		CLASS_MYBUTTON,
+		CLASS_MY_BUTTON,
 		NULL,
 		WS_CHILD | WS_VISIBLE,
 		POS_X_PREV_BUTTON,
@@ -204,7 +204,7 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance)
 
 
 	HWND hNextBtn = CreateWindow(
-		CLASS_MYBUTTON,
+		CLASS_MY_BUTTON,
 		NULL,
 		WS_CHILD | WS_VISIBLE,
 		POS_X_NEXT_BUTTON,
@@ -258,7 +258,7 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 
 
 	HWND hPlayBtn = CreateWindow(
-		CLASS_MYBUTTON,
+		CLASS_MY_BUTTON,
 		NULL,
 		WS_CHILD | WS_VISIBLE,
 		POS_X_PLAY_BUTTON,

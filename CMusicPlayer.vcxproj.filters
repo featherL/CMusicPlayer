@@ -27,6 +27,9 @@
     <ClCompile Include="MyButton.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MyListView.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="control.h">
@@ -36,6 +39,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="MyButton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyListView.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,9 +11,10 @@ void buttonInit()
 	wc.hCursor = LoadCursor(0, IDC_ARROW);  //默认的小箭头作为鼠标图标
 	wc.hInstance = GetModuleHandle(0);  //GetModuleHandle获取程序的实例句柄
 	wc.lpfnWndProc = buttonProc;  //过程函数
-	wc.lpszClassName = CLASS_MYBUTTON; //类名
-	wc.cbWndExtra = sizeof(void *);  //用来传递参数的附加空间大小
+	wc.lpszClassName = CLASS_MY_BUTTON; //类名
 	wc.style = CS_DBLCLKS;  //使窗口可以接受点击事件
+
+	
 	
 	RegisterClassEx(&wc);  //注册窗口类
 }
@@ -28,18 +29,21 @@ ButtonData* getButtonData(HWND hwnd)
 	return ret;
 }
 
-LRESULT CALLBACK buttonProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK buttonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	TRACKMOUSEEVENT tme;
 	ButtonData* btnData;
 
-	switch(uMsg)
-	{
-	case WM_CREATE: //保存参数
+	if(message == WM_CREATE)
+	{ //保存创建窗口传入的参数,存储一些必要的数据等操作
 		buttonOnCreate(hwnd, lParam);
-		break;
+	}
+
+	btnData = getButtonData(hwnd);  //获取存起来的数据
+
+	switch(message)
+	{
 	case WM_MOUSEMOVE:
-		btnData = getButtonData(hwnd);
 		if (!btnData->isMouseTracked)
 		{ //开启鼠标悬停，移出事件
 			tme.cbSize = sizeof(tme);
@@ -52,34 +56,29 @@ LRESULT CALLBACK buttonProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_PAINT:                    //绘制按钮
-		btnData = getButtonData(hwnd);
 		buttonPaint(hwnd, btnData);
 		break;
 	case WM_MOUSEHOVER:               //鼠标悬停
-		btnData = getButtonData(hwnd);
 		buttonOnMouseHover(hwnd, btnData);
 		btnData->isMouseTracked = 0;
 		break;
 	case WM_MOUSELEAVE:               //鼠标离开
-		btnData = getButtonData(hwnd);
 		buttonOnMouseLeave(hwnd, btnData);
 		btnData->isMouseTracked = 0;
 		break;
 	case WM_LBUTTONDOWN:              //鼠标按下
-		btnData = getButtonData(hwnd);
 		buttonOnMouseDown(hwnd, btnData);
 		break;
 	case WM_LBUTTONUP:                //鼠标抬起
-		btnData = getButtonData(hwnd);
 		buttonOnMouseUp(hwnd, btnData);
 		//模仿win32自带的按钮控件发送点击消息到父窗口
 		SendMessage(btnData->hParent, WM_COMMAND, MAKEWPARAM(0, BN_CLICKED), (LPARAM)hwnd);
 		break;
 	case WM_DESTROY:
-		buttonOnDestroy(hwnd);  //释放分配的资源
+		buttonOnDestroy(hwnd, btnData);  //释放分配的资源
 		break;
 	default:
-		return DefWindowProc(hwnd, uMsg, wParam, lParam);
+		return DefWindowProc(hwnd, message, wParam, lParam);
 	}
 
 	return 0;
@@ -107,10 +106,8 @@ void buttonOnCreate(HWND hwnd, LPARAM lParam)
 }
 
 //窗口销毁时，做一些资源释放的操作
-void buttonOnDestroy(HWND hwnd)
+void buttonOnDestroy(HWND hwnd, ButtonData* btnData)
 {
-	ButtonData* btnData = getButtonData(hwnd);
-
 	//释放设备上下文
 	DeleteDC(btnData->compatibleHdc); 
 	ReleaseDC(hwnd, btnData->controlHdc);  
