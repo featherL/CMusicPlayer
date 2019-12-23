@@ -12,12 +12,18 @@
 该模块负责窗口的初始化以及画面的显示
 */
 
+//各种位图资源
 extern ButtonBmp* g_playBtnBmp;
 extern ButtonBmp* g_playBtnBmp2;
 extern ButtonBmp* g_nextBtnBmp;
 extern ButtonBmp* g_prevBtnBmp;
 extern ButtonBmp* g_xBtnBmp;
 extern ButtonBmp* g_modeBtnBmp;
+
+extern HDC g_hdcOfMainWin;			//主窗口的设备句柄
+extern HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
+extern HBITMAP g_hBitmap;			//用来贴图的内存区域
+extern HWND g_hWin;					//主窗口句柄
 
 
 //----------------
@@ -81,13 +87,18 @@ extern ButtonBmp* g_modeBtnBmp;
 
 //歌曲列表
 #define POS_X_SONG_LIST 20
-#define POS_Y_SONG_LIST 32
-#define WIDTH_SONG_LIST 800
-#define HEIGHT_SONG_LIST 480
+#define POS_Y_SONG_LIST 64
+#define WIDTH_SONG_LIST 950
+#define HEIGHT_SONG_LIST 400
 
 //歌曲列表的表头的文字（只有一列）
 #define TEXT_OF_LIST_COLUMN L"歌曲名"
 
+//进度条（画成一个矩形）
+#define WIDTH_PROGRESS_BAR 950
+#define HEIGHT_PROGRESS_BAR 10
+#define POS_X_PROGRESS_BAR 20
+#define POS_Y_PROGRESS_BAR 480
 
 //--------------------------
 
@@ -131,4 +142,8 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance);
 	//hParent 父窗口句柄
 	//hInstance 程序句柄
 void songListInit(HWND hParent, HINSTANCE hInstance);
+
+//绘制进度条
+	//persent 进度条的百分比  persent为98则表示98%
+void drawProgressBar(double persent);
 

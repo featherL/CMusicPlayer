@@ -5,12 +5,14 @@
 static Handler g_handlers[MAX_LEN_FOR_HANDLER];  //存储控件的回调函数及其句柄
 static int g_lenOfHandlers = 0;  //g_handlers数组元素的个数
 
-
 //窗口过程函数
 LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 {
 	switch(message)
 	{
+	case WM_CREATE:
+		winOnCreate(hwnd);
+		break;
 	case WM_NCHITTEST:  //鼠标点击测试事件（可用于实现窗口拖动）
 		return winOnNcHitTest(hwnd, lParam);
 	case WM_NCDESTROY:
@@ -43,6 +45,7 @@ void eventLoop()
 		{
 			//检查当前歌曲是否播放完毕
 			//如果播放完毕，播放下一首
+			progressWhenNoMessage();
 		}
 	}
 }
@@ -85,6 +88,15 @@ void winOnDestroy()
 	releaseBmpResource(g_nextBtnBmp);
 	releaseBmpResource(g_modeBtnBmp);
 	releaseBmpResource(g_xBtnBmp);
+
+	//删除内存位图
+	DeleteObject(g_hBitmap);
+
+
+	//释放设备句柄
+	DeleteDC(g_hBuffOfMainWin);
+	ReleaseDC(g_hWin, g_hdcOfMainWin);
+
 
 	PostQuitMessage(0);  //发送WM_QUIT消息，这样消息循环的才能退出
 }
@@ -141,6 +153,15 @@ LRESULT winOnCommand(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWin, message, wParam, lParam);
 }
 
+//窗口创建事件,获取设备句柄等操作
+void winOnCreate(HWND hWin)
+{
+	g_hWin = hWin;
+	g_hdcOfMainWin = GetDC(hWin);
+	g_hBuffOfMainWin = CreateCompatibleDC(g_hdcOfMainWin);
+	g_hBitmap = CreateCompatibleBitmap(g_hdcOfMainWin, WINDOW_WIDTH, WINDOW_HEIGHT);
+}
+
 //退出按钮的事件处理函数
 LRESULT quitBtnHandler(HWND hwnd, int code)
 {
@@ -151,4 +172,21 @@ LRESULT quitBtnHandler(HWND hwnd, int code)
 	}
 
 	return 0;  //正常退出 
+}
+
+//没有消息时的逻辑，循环获取音乐的进度，更新进度条，及时播放下一首
+void progressWhenNoMessage()
+{
+	static int count = 0;
+	static int persent = 0;
+
+	if(count == 100000)
+	{
+		persent += 1;
+		persent = persent % 100;
+		drawProgressBar(persent);
+		count = 0;
+	}
+
+	count++;
 }
