@@ -12,14 +12,14 @@ int openDirectory(wchar_t* directory)
 {
 	int ret = 0;		//返回值
 	
-	wchar_t directoryFullPath[MAX_PATH];  //存储目录的绝对路径
+	wchar_t dirFullPath[MAX_PATH];  //存储目录的绝对路径
 	wchar_t *fileName;					  //如果directory是文件路径，则这个指向一个字符串为文件名
 
 	//获取directory的绝对路径，获取到的绝对路径末尾没有分隔符
-	GetFullPathName(directory, MAX_PATH, directoryFullPath, &fileName);
+	GetFullPathName(directory, MAX_PATH, dirFullPath, &fileName);
 
 	wchar_t* match[MAX_PATH];		//用来匹配mp3文件的路径
-	PathCombine(match, directoryFullPath, L"*.mp3");
+	PathCombine(match, dirFullPath, L"*.mp3");  //拼接路径，拼接成dirFullPath\\*.mp3
 
 	WIN32_FIND_DATA fileInfo;		//用来查找文件的结构体
 	HANDLE handle;					//用来查找文件的句柄
@@ -30,7 +30,7 @@ int openDirectory(wchar_t* directory)
 		{
 			//mp3文件的路径
 			wchar_t musicPath[MAX_PATH];
-			PathCombine(musicPath, directoryFullPath, fileInfo.cFileName);
+			PathCombine(musicPath, dirFullPath, fileInfo.cFileName);
 
 			//打开mp3文件
 			MCI_OPEN_PARMS mciOpen;
