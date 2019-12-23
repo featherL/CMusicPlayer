@@ -125,11 +125,13 @@
   <ItemGroup>
     <ClCompile Include="control.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="MusicControl.c" />
     <ClCompile Include="MyButton.c" />
     <ClCompile Include="view.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="control.h" />
+    <ClInclude Include="MusicControl.h" />
     <ClInclude Include="MyButton.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>

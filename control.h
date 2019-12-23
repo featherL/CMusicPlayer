@@ -4,6 +4,7 @@
 #include "view.h"
 #include "MyButton.h"
 #include <stdlib.h>
+#include "MusicControl.h"
 
 /*
 该模块负责代码逻辑
