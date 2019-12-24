@@ -94,4 +94,8 @@ DWORD getCurrentMusicPos();
 	//返回值为当前歌曲的长度，若当前无歌曲播放或者暂停，则返回1
 DWORD getCurrentMusicLenght();
 
+//停止当前歌曲播放
+	//成功返回1，否则返回0
+int stopCurrentMusic();
+
 

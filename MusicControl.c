@@ -279,3 +279,16 @@ void traverse(TraverseCallBack callBackFunc)
 		} while (cur != g_headOfList);
 	}	
 }
+
+//停止当前歌曲播放
+	//成功返回1，否则返回0
+int stopCurrentMusic()
+{
+	if (g_curNode != NULL)
+	{
+		if(0 == mciSendCommand(g_curNode->deviceId,MCI_STOP,NULL,NULL))
+			return 1;
+	}
+	else
+		return 0;
+}
