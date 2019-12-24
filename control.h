@@ -37,7 +37,6 @@ void eventLoop();
 	//node 歌曲节点
 	//返回值，给traverseAllMusic函数用
 int addSongToList(MusicNode* node);
-
 //--------------------------
 //控件事件函数的绑定相关
 //回调函数的类型
@@ -93,7 +92,10 @@ void winOnCreate(HWND hWin);
 
 //WM_NOTIFY事件处理,这里处理列表的事件
 	//hWin 主窗口句的柄
-void winOnNotify(HWND hWin);
+	//message 主窗口过程函数中的message参数
+	//wParam 主窗口过程函数中的wParam参数
+	//lParam 主窗口过程函数中的lParam参数
+void winOnNotify(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam);
 
 //---------------------
 //控件的处理函数

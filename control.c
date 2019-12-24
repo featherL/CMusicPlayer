@@ -19,6 +19,9 @@ LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 	case WM_CREATE:
 		winOnCreate(hwnd);
 		break;
+	case WM_NOTIFY:
+		winOnNotify(hwnd, message, wParam, lParam);
+		break;
 	case WM_NCHITTEST:  //鼠标点击测试事件（可用于实现窗口拖动）
 		return winOnNcHitTest(hwnd, lParam);
 	case WM_NCDESTROY:
@@ -221,6 +224,42 @@ void winOnCreate(HWND hWin)
 	g_hBitmap = CreateCompatibleBitmap(g_hdcOfMainWin, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
+//WM_NOTIFY事件处理,这里处理列表的事件
+	//hWin 主窗口句的柄
+	//message 主窗口过程函数中的message参数
+	//wParam 主窗口过程函数中的wParam参数
+	//lParam 主窗口过程函数中的lParam参数
+void winOnNotify(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	int code = ((LPNMHDR)lParam)->code;  //通知码
+	if(code == NM_CLICK || code == NM_DBLCLK)
+	{ //表项被单击或者双击
+
+		LPNMITEMACTIVATE lpInfo = (LPNMITEMACTIVATE)lParam;  //这个指针指向的结构体有点击的项的信息
+
+		//获取这一项歌曲对应的设备id
+		wchar_t strId[1024];
+		if(lpInfo->iItem >= 0)
+		{
+			ListView_GetItemText(g_hSongList, lpInfo->iItem, 1, &strId, 1024);  //第lpInfo->iItem行第1列
+			WORD id = (WORD)StrToInt(strId);	//字符串转换成数字
+
+			//双击播放
+			if(code == NM_DBLCLK)
+			{
+				stopCurrentMusic();
+				playMusic(id); 
+			}
+			else
+			{ //单击只更改g_select
+				g_select = id;
+			}
+			
+		}
+	}
+
+}
+
 //退出按钮的事件处理函数
 	//hwnd 按钮的句柄
 	//code 通知码
@@ -341,10 +380,18 @@ LRESULT nextBtnHandler(HWND hwnd, int code)
 	{  //点击事件
 
 		//停止当前歌曲播放
-
-
-		//播放下一首歌
-		playNext();
+		if(stopCurrentMusic())
+		{ //先停止当前歌曲的播放
+			//播放下一首歌
+			playNext();
+		}
+		else
+		{ //停止失败
+			//输出调试信息
+			wchar_t output[1024];
+			wsprintf(output, L"调用出错:stopCurrentMusic\n");
+			OutputDebugString(output);
+		}
 	}
 
 	return 0;
@@ -358,12 +405,19 @@ LRESULT prevBtnHandler(HWND hwnd, int code)
 	if (code == BN_CLICKED)
 	{  //点击事件
 
-		//停止播放当前歌曲
-		
-
-
-		//播放上一首歌
-		playPrev();
+		//停止当前歌曲播放
+		if(stopCurrentMusic())
+		{ //先停止当前歌曲的播放
+			//播放上一首歌
+			playPrev();
+		}
+		else
+		{ //停止失败
+			//输出调试信息
+			wchar_t output[1024];
+			wsprintf(output, L"调用出错:stopCurrentMusic\n");
+			OutputDebugString(output);
+		}
 	}
 
 	return 0;

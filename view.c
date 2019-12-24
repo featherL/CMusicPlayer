@@ -210,7 +210,7 @@ void prevButtonInit(HWND hParent, HINSTANCE hInstance)
 		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
 	);
 
-	bindCallBackFunc(hPrevBtn, playPrev); 
+	bindCallBackFunc(hPrevBtn, prevBtnHandler); 
 }
 
 //创建next按钮
@@ -251,7 +251,7 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance)
 		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
 	);
 
-	bindCallBackFunc(hNextBtn, playNext); 
+	bindCallBackFunc(hNextBtn, nextBtnHandler); 
 }
 
 //创建播放按钮

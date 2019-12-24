@@ -308,7 +308,7 @@ int stopCurrentMusic()
 {
 	if (g_curNode != NULL)
 	{
-		if(0 == mciSendCommand(g_curNode->deviceId,MCI_STOP,NULL,NULL))
+		if(0 == mciSendCommand(g_curNode->deviceId, MCI_STOP, NULL, NULL))
 			return 1;
 	}
 	else
