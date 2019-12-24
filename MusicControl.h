@@ -74,6 +74,10 @@ int playMusic(WORD deviceId);
 	//成功返回1，否则返回0
 int playNext();
 
+//播放上一首音乐
+	//成功返回1，否则返回0
+int playPrev();
+
 //循环切换播放模式
 	//返回切换后的模式
 int switchMode();
