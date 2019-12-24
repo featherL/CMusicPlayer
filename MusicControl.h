@@ -12,6 +12,13 @@
 #include <mmsystem.h>  
 #pragma comment (lib, "winmm.lib")
 
+//宏定义
+//顺序播放、循环播放、随机播放
+#define MODE_ORDER 1
+#define MODE_LOOP 2
+#define MODE_RANDOWM 3
+
+
 
 //-----------------------------------
 typedef struct MusicNode

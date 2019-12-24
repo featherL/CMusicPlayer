@@ -5,7 +5,8 @@ ButtonBmp* g_playBtnBmp2 = NULL;  //暂停按钮的相关图片
 ButtonBmp* g_nextBtnBmp = NULL;  //下一首按钮的相关图片
 ButtonBmp* g_prevBtnBmp = NULL;  //上一首按钮的相关图片
 ButtonBmp* g_xBtnBmp = NULL;  //退出按钮的相关图片
-ButtonBmp* g_modeBtnBmp = NULL;  //模式按钮的相关图片
+ButtonBmp* g_modeBtnBmp = NULL;  //模式按钮的当前使用的一套相关图片
+
 
 HDC g_hdcOfMainWin;			//主窗口的设备句柄
 HDC g_hBuffOfMainWin;		//用来缓冲的设备环境

@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "control.h"
 #include "MyButton.h"
+#include "MusicControl.h"
 
 //windows提供控件的库
 #include <CommCtrl.h>
