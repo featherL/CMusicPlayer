@@ -18,7 +18,7 @@ extern ButtonBmp* g_playBtnBmp;	//播放按钮的相关图片
 extern ButtonBmp* g_playBtnBmp2;	//暂停按钮的相关图片
 extern ButtonBmp* g_prevBtnBmp;	//上一首按钮的相关图片
 extern ButtonBmp* g_xBtnBmp;		//退出按钮的相关图片
-extern ButtonBmp* g_modeBtnBmpCur; //模式按钮的当前使用的一套相关图片
+extern ButtonBmp* g_modeBtnBmpCur;	//模式按钮的当前使用的一套相关图片
 extern ButtonBmp* g_modeBtnBmp1;	//模式按钮顺序播放使用的相关图片
 extern ButtonBmp* g_modeBtnBmp2;	//模式按钮循环播放使用的相关图片
 extern ButtonBmp* g_modeBtnBmp3;	//模式按钮随机播放使用的相关图片
@@ -80,9 +80,15 @@ extern HWND g_hWin;					//主窗口句柄
 #define POS_Y_X_BUTTON 0
 
 //模式按钮
-#define BMP_STATIC_MODE_BUTTON L"images\\modeButton\\1-1.bmp"
-#define BMP_HOVER_MODE_BUTTON L"images\\modeButton\\1-2.bmp"
-#define BMP_DOWN_MODE_BUTTON L"images\\modeButton\\1-3.bmp"
+#define BMP_STATIC_MODE_1_BUTTON L"images\\modeButton\\1-1.bmp"
+#define BMP_HOVER_MODE_1_BUTTON L"images\\modeButton\\1-2.bmp"
+#define BMP_DOWN_MODE_1_BUTTON L"images\\modeButton\\1-3.bmp"
+#define BMP_STATIC_MODE_2_BUTTON L"images\\modeButton\\2-1.bmp"
+#define BMP_HOVER_MODE_2_BUTTON L"images\\modeButton\\2-2.bmp"
+#define BMP_DOWN_MODE_2_BUTTON L"images\\modeButton\\2-3.bmp"
+#define BMP_STATIC_MODE_3_BUTTON L"images\\modeButton\\3-1.bmp"
+#define BMP_HOVER_MODE_3_BUTTON L"images\\modeButton\\3-2.bmp"
+#define BMP_DOWN_MODE_3_BUTTON L"images\\modeButton\\3-3.bmp"
 #define POS_X_MODE_BUTTON 20
 #define POS_Y_MODE_BUTTON 520
 #define WIDTH_MODE_BUTTON 64

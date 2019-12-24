@@ -5,7 +5,7 @@ ButtonBmp* g_playBtnBmp2 = NULL;  //暂停按钮的相关图片
 ButtonBmp* g_nextBtnBmp = NULL;   //下一首按钮的相关图片
 ButtonBmp* g_prevBtnBmp = NULL;   //上一首按钮的相关图片
 ButtonBmp* g_xBtnBmp = NULL;      //退出按钮的相关图片
-ButtonBmp* g_modeBtnBmp = NULL;   //模式按钮的当前使用的一套相关图片
+ButtonBmp* g_modeBtnBmpCur = NULL;//模式按钮的当前使用的一套相关图片
 ButtonBmp* g_modeBtnBmp1 = NULL;  //模式按钮顺序播放使用的相关图片
 ButtonBmp* g_modeBtnBmp2 = NULL;  //模式按钮循环播放使用的相关图片
 ButtonBmp* g_modeBtnBmp3 = NULL;  //模式按钮随机播放使用的相关图片
@@ -62,34 +62,47 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 
 void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 {
-	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
-
-	g_modeBtnBmp = btnBmp;
+	g_modeBtnBmpCur = (ButtonBmp*)malloc(sizeof(ButtonBmp)); //当前界面所需要的图片组
+	g_modeBtnBmp1 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
+	g_modeBtnBmp2 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
+	g_modeBtnBmp3 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
 
 	//加载图片资源
 
-	//循环状态
-	btnBmp->bmps[BMP_STATIC] = LoadImage(0, BMP_STATIC_MODE_BUTTON, IMAGE_BITMAP,
+	//循环播放图片
+	g_modeBtnBmp1->bmps[BMP_STATIC] = LoadImage(0, BMP_STATIC_MODE_1_BUTTON, IMAGE_BITMAP,
 		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
-
 	//鼠标悬停
-	btnBmp->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_HOVER_MODE_BUTTON, IMAGE_BITMAP,
+	g_modeBtnBmp1->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_HOVER_MODE_1_BUTTON, IMAGE_BITMAP,
 		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
-
 	//鼠标按下
-	btnBmp->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_DOWN_MODE_BUTTON, IMAGE_BITMAP,
+	g_modeBtnBmp1->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_DOWN_MODE_1_BUTTON, IMAGE_BITMAP,
 		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
 
-	//另一套图，播放时用的一套动画
-	g_playBtnBmp2 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
-	g_playBtnBmp2->bmps[BMP_STATIC] = LoadImage(0, BMP_PLAY_STATIC_PLAY_BUTTON, IMAGE_BITMAP,
-		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
 
-	g_playBtnBmp2->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_PLAY_HOVER_PLAY_BUTTON, IMAGE_BITMAP,
-		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
+	//顺序播放图片
+	g_modeBtnBmp2->bmps[BMP_STATIC] = LoadImage(0, BMP_STATIC_MODE_2_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+	//鼠标悬停
+	g_modeBtnBmp2->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_HOVER_MODE_2_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+	//鼠标按下
+	g_modeBtnBmp2->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_DOWN_MODE_2_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
 
-	g_playBtnBmp2->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_MOUSE_DOWN_PLAY_BUTTON, IMAGE_BITMAP,
-		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);  //这张图和第一套的一样
+
+	//随机播放图片
+	g_modeBtnBmp3->bmps[BMP_STATIC] = LoadImage(0, BMP_STATIC_MODE_3_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+	//鼠标悬停
+	g_modeBtnBmp3->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_HOVER_MODE_3_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+	//鼠标按下
+	g_modeBtnBmp3->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_DOWN_MODE_3_BUTTON, IMAGE_BITMAP,
+		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
+
+
+	memcpy(g_modeBtnBmpCur, g_modeBtnBmp1, sizeof(ButtonBmp));        //初始显示循环图片
 
 
 	HWND hModeBtn = CreateWindow(
@@ -103,7 +116,7 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 		hParent,
 		NULL,
 		hInstance,
-		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
+		(LPARAM)g_modeBtnBmpCur   //关于按钮图片的指针，作为参数传入
 	);
 
 	//bindCallBackFunc(hModeBtn, func); 
