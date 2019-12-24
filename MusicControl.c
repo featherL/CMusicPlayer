@@ -6,6 +6,26 @@ static MusicNode* g_headOfPlaying = NULL;		//播放队列链表的头指针
 static MusicNode* g_curNode = NULL;			//当前正在播放的歌曲
 static int g_status = STATUS_STOP;				//当前的状态
 
+//释放头指针指向的链表的所有节点
+	//list 指向头指针变量的指针(指针的指针！指针的指针！指针的指针!)
+void freeList(MusicNode** list)
+{
+	MusicNode* tmp;
+	MusicNode* cur = *list;
+	if(cur != NULL)
+	{
+		do
+		{
+			tmp = cur->next;	//保存下一个节点的指针
+			free(cur);
+			cur = tmp;
+		} while(cur != *list);
+
+		*list = NULL;			//头指针置为NULL
+	}
+}
+
+
 //播放音乐
 	//deviceId 设备id
 int playMusic(WORD deviceId)
