@@ -8,6 +8,26 @@ static int g_sizeOfAllModes = 3;				//g_allModes数组元素的个数
 static int g_modeIndex = 0;						//g_allModes数组的下标，表示当前模式，初始为循环播放模式
 static int g_status = STATUS_STOP;				//当前的状态
 
+//获取当前歌曲播放进度
+	//返回值为进度的百分值，例如98表示98%
+double getMusicPersent()
+{
+	if(g_curNode != NULL)
+	{
+		//获取当前播放的位置
+		MCI_STATUS_PARMS mciStatusParms;
+		mciStatusParms.dwItem = MCI_STATUS_POSITION;
+
+		if(0 == mciSendCommand(g_curNode->deviceId, MCI_STATUS, MCI_STATUS_ITEM, &mciStatusParms))
+		{
+			DWORD pos = mciStatusParms.dwReturn;  //当前位置
+			double persent = (double)pos / g_curNode->length * 100;	//百分值
+			return persent;
+		}
+	}
+
+	return 0.0;
+}
 
 //暂停当前歌曲播放
 	//成功返回1，否则返回0
@@ -133,25 +153,36 @@ int openDirectory(wchar_t* directory)
 			MusicNode* newNode;
 			if(0 == mciSendCommand(NULL, MCI_OPEN, MCI_OPEN_ELEMENT, (DWORD)&mciOpen))
 			{ //打开成功
-				ret = 1;  //只要有一首歌曲打开成功，函数的返回值就为1
-				
-				//创建一个节点插入到链表
-				newNode = (MusicNode*)malloc(sizeof(MusicNode));
-				lstrcpyn(newNode->name, fileInfo.cFileName, MAX_PATH);  //保存歌曲名字
-				newNode->deviceId = mciOpen.wDeviceID;		//设备id，用于操作歌曲的播放，暂停等
-				
-				if(g_headOfList == NULL)
-				{  //第一次插入节点
-					g_headOfList = newNode;
-					
-					//循环链表
-					newNode->next = newNode;
-					newNode->pre = newNode;
-				}
-				else
-				{  
-					MusicNode* tail = g_headOfList->pre;	//链表尾部
-					appendNode(tail, newNode);				//附加到链表尾部
+
+				//获取歌曲文件的长度
+				MCI_STATUS_PARMS mciStatusParms;
+				mciStatusParms.dwItem = MCI_STATUS_LENGTH;
+
+				if(0 == mciSendCommand(mciOpen.wDeviceID, MCI_STATUS, MCI_STATUS_ITEM, (DWORD)&mciStatusParms))
+				{ 
+					ret = 1;  //只要有一首歌曲打开成功，函数的返回值就为1
+
+					//创建一个节点插入到链表
+					newNode = (MusicNode*)malloc(sizeof(MusicNode));
+
+					newNode->length = mciStatusParms.dwReturn;  //保存歌曲长度
+					lstrcpyn(newNode->name, fileInfo.cFileName, MAX_PATH);  //保存歌曲名字
+					newNode->deviceId = mciOpen.wDeviceID;		//设备id，用于操作歌曲的播放，暂停等
+
+					//插入到链表
+					if(g_headOfList == NULL)
+					{  //第一次插入节点
+						g_headOfList = newNode;
+
+						//循环链表
+						newNode->next = newNode;
+						newNode->pre = newNode;
+					}
+					else
+					{
+						MusicNode* tail = g_headOfList->pre;	//链表尾部
+						appendNode(tail, newNode);				//附加到链表尾部
+					}
 				}
 			}
 		} while(FindNextFile(handle, &fileInfo));

@@ -208,18 +208,8 @@ LRESULT quitBtnHandler(HWND hwnd, int code)
 //没有消息时的逻辑，循环获取音乐的进度，更新进度条，及时播放下一首
 void progressWhenNoMessage()
 {
-	static int count = 0;
-	static int persent = 0;
-
-	if(count == 100000)
-	{
-		persent += 1;
-		persent = persent % 100;
-		drawProgressBar(persent);
-		count = 0;
-	}
-
-	count++;
+	double persent = getMusicPersent();		//获取进度
+	drawProgressBar(persent);				//绘制进度条
 }
 
 //播放按钮的事件处理函数

@@ -30,6 +30,7 @@
 typedef struct MusicNode
 {
 	WORD deviceId;				//打开的音乐文件的设备id
+	DWORD length;				//歌曲的长度
 	wchar_t name[MAX_PATH];		//歌曲的名字
 	struct MusicNode* pre;		//指向上一个节点
 	struct MusicNode* next;		//指向下一个节点
@@ -84,5 +85,9 @@ int pauseCurrentMusic();
 //恢复当前歌曲播放
 	//成功返回1，否则返回0
 int resumeCurrentMusic();
+
+//获取当前歌曲播放进度
+	//返回值为进度的百分值，例如98表示98%
+double getMusicPersent();
 
 
