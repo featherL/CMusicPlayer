@@ -56,7 +56,7 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 	modeButtonInit(hWin, hInstance);        //模式按钮
 	songListInit(hWin, hInstance);			//歌曲列表
 
-	ShowWindow(hWin, nCmdShow);  //显示窗口
+	ShowWindow(hWin, nCmdShow);             //显示窗口
 }
 
 
@@ -119,7 +119,8 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 		(LPARAM)g_modeBtnBmpCur   //关于按钮图片的指针，作为参数传入
 	);
 
-	//bindCallBackFunc(hModeBtn, func); 
+	//绑定事件处理函数
+	bindCallBackFunc(hModeBtn, modeBtnHandler);
 }
 
 
@@ -377,6 +378,29 @@ void switchPlayBtnBmp(HWND hwnd, int status)
 	else
 	{ //暂停状态
 		memcpy(g_playBtnBmpCur, g_playBtnBmp1, sizeof(ButtonBmp));
+	}
+
+	//刷新按钮
+	InvalidateRect(hwnd, NULL, FALSE);
+	UpdateWindow(hwnd);
+}
+
+//切换模式按钮的图片
+	//hwnd 按钮句柄
+	//status 按钮的状态
+void switchModeBtnBmp(HWND hwnd, int status)
+{
+	if (status == MODE_LOOP)
+	{ //循环播放状态
+		memcpy(g_modeBtnBmpCur, g_modeBtnBmp1, sizeof(ButtonBmp));
+	}
+	else if(status == MODE_ORDER)
+	{ //顺序播放状态
+		memcpy(g_modeBtnBmpCur, g_modeBtnBmp2, sizeof(ButtonBmp));
+	}
+	else 
+	{ //随机播放状态
+		memcpy(g_modeBtnBmpCur, g_modeBtnBmp3, sizeof(ButtonBmp));
 	}
 
 	//刷新按钮

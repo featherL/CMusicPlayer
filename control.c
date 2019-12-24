@@ -221,3 +221,26 @@ LRESULT playBtnHandler(HWND hwnd, int code)
 
 	return 0;
 }
+
+//模式按钮的事件处理函数
+LRESULT modeBtnHandler(HWND hwnd, int code)
+{
+	static int status = STATUS_PLAY;
+	if (code == BN_CLICKED)
+	{  //点击事件
+
+		//int status = getStatus();
+
+		if (status == MODE_LOOP)        
+			status = MODE_ORDER;
+		else if (status == MODE_ORDER)
+			status = MODE_RANDOWM;
+		else
+			status = MODE_LOOP;
+
+		//切换按钮的图片
+		switchModeBtnBmp(hwnd, status);
+	}
+
+	return 0;
+}

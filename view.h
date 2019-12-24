@@ -163,3 +163,8 @@ void drawProgressBar(double persent);
 	//status 按钮的状态
 void switchPlayBtnBmp(HWND hwnd, int status);
 
+//切换模式按钮的图片
+	//hwnd 按钮句柄
+	//status 按钮的状态
+void switchModeBtnBmp(HWND hwnd, int status);
+
