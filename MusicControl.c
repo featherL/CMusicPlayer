@@ -8,10 +8,23 @@ static int g_sizeOfAllModes = 3;				//g_allModes数组元素的个数
 static int g_modeIndex = 0;						//g_allModes数组的下标，表示当前模式，初始为循环播放模式
 static int g_status = STATUS_STOP;				//当前的状态
 
-//获取当前歌曲播放进度
-	//返回值为进度的百分值，例如98表示98%
-double getMusicPersent()
+//获取当前歌曲的长度
+	//返回值为当前歌曲的长度，若当前无歌曲播放或者暂停，则返回1
+DWORD getCurrentMusicLenght()
 {
+	if(g_curNode != NULL)
+	{
+		return g_curNode->length;
+	}
+
+	return 1;	//不能返回0，因为这个数要用作除数
+}
+
+//获取当前歌曲播放进度
+	//返回值当前播放的位置，若当前无歌曲播放或暂停，则返回0
+DWORD getCurrentMusicPos()
+{
+	DWORD pos = 0;
 	if(g_curNode != NULL)
 	{
 		//获取当前播放的位置
@@ -20,13 +33,11 @@ double getMusicPersent()
 
 		if(0 == mciSendCommand(g_curNode->deviceId, MCI_STATUS, MCI_STATUS_ITEM, &mciStatusParms))
 		{
-			DWORD pos = mciStatusParms.dwReturn;  //当前位置
-			double persent = (double)pos / g_curNode->length * 100;	//百分值
-			return persent;
+			pos = mciStatusParms.dwReturn;  //当前位置
 		}
 	}
 
-	return 0.0;
+	return pos;
 }
 
 //暂停当前歌曲播放

@@ -208,8 +208,27 @@ LRESULT quitBtnHandler(HWND hwnd, int code)
 //没有消息时的逻辑，循环获取音乐的进度，更新进度条，及时播放下一首
 void progressWhenNoMessage()
 {
-	double persent = getMusicPersent();		//获取进度
-	drawProgressBar(persent);				//绘制进度条
+	if(getStatus() == STATUS_PLAY)
+	{
+		DWORD pos = getCurrentMusicPos();			//获取进度
+		DWORD lenght = getCurrentMusicLenght();		//获取长度
+
+		if(pos == lenght)
+		{ //播完了，播放下一首
+			if(!playNext())
+			{ //调用失败
+				//输出调试信息
+				wchar_t output[1024];
+				wsprintf(output, L"调用出错:playNext()\n");
+				OutputDebugString(output);
+			}
+		}
+		else
+		{
+			double persent = (double)pos * 100 / lenght;	//计算百分值
+			drawProgressBar(persent);				//绘制进度条
+		}
+	}
 }
 
 //播放按钮的事件处理函数

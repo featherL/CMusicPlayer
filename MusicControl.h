@@ -87,7 +87,11 @@ int pauseCurrentMusic();
 int resumeCurrentMusic();
 
 //获取当前歌曲播放进度
-	//返回值为进度的百分值，例如98表示98%
-double getMusicPersent();
+	//返回值当前播放的位置，若当前无歌曲播放或暂停，则返回0
+DWORD getCurrentMusicPos();
+
+//获取当前歌曲的长度
+	//返回值为当前歌曲的长度，若当前无歌曲播放或者暂停，则返回1
+DWORD getCurrentMusicLenght();
 
 
