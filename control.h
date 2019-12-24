@@ -76,7 +76,7 @@ LRESULT quitBtnHandler(HWND hwnd, int code);
 	//code 通知码 
 LRESULT playBtnHandler(HWND hwnd, int code);
 
-//播放按钮的事件处理函数
+//模式按钮的事件处理函数
 	//hwnd 按钮的句柄
 	//code 通知码 
 LRESULT modeBtnHandler(HWND hwnd, int code);
