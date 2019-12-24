@@ -225,7 +225,7 @@ LRESULT playBtnHandler(HWND hwnd, int code)
 //模式按钮的事件处理函数
 LRESULT modeBtnHandler(HWND hwnd, int code)
 {
-	static int status = STATUS_PLAY;
+	static int status = MODE_ORDER;
 	if (code == BN_CLICKED)
 	{  //点击事件
 
