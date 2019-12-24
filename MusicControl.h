@@ -30,6 +30,7 @@
 typedef struct MusicNode
 {
 	WORD deviceId;				//打开的音乐文件的设备id
+	DWORD length;				//歌曲的长度
 	wchar_t name[MAX_PATH];		//歌曲的名字
 	struct MusicNode* pre;		//指向上一个节点
 	struct MusicNode* next;		//指向下一个节点
@@ -88,5 +89,13 @@ int pauseCurrentMusic();
 //恢复当前歌曲播放
 	//成功返回1，否则返回0
 int resumeCurrentMusic();
+
+//获取当前歌曲播放进度
+	//返回值当前播放的位置，若当前无歌曲播放或暂停，则返回0
+DWORD getCurrentMusicPos();
+
+//获取当前歌曲的长度
+	//返回值为当前歌曲的长度，若当前无歌曲播放或者暂停，则返回1
+DWORD getCurrentMusicLenght();
 
 
