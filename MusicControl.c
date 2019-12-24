@@ -214,3 +214,26 @@ int switchMode()
 	return g_allModes[g_modeIndex];		//返回模式
 }
 
+//遍历链表用的回调函数的类型
+	//node 遍历到的节点
+	//回调函数返回值为1表示继续遍历，否则停止遍历
+typedef int (*TraverseCallBack)(MusicNode* node);
+
+//遍历歌曲链表，对每个节点调用回调函数
+	//callBackFunc 回调函数
+void traverse(TraverseCallBack callBackFunc)
+{
+	MusicNode* cur;
+	cur = g_headOfList;
+	if (cur != NULL)
+	{   
+		do
+		{
+			if (!callBackFunc(cur)) //调用回调函数
+			{
+				break;
+			}
+			cur = cur->next;
+		} while (cur != g_headOfList);
+	}	
+}
