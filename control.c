@@ -4,6 +4,7 @@
 static Handler g_handlers[MAX_LEN_FOR_HANDLER];		//存储控件的回调函数及其句柄
 static int g_lenOfHandlers = 0;						//g_handlers数组元素的个数
 static WORD g_select = 1;							//列表选中的歌曲对应的设备id
+static int g_indexOfItem = 0;						//下一个添加进列表的项的索引
 
 //主窗口过程函数
 	//hwnd 窗口句柄
@@ -64,19 +65,22 @@ int addSongToList(MusicNode* node)
 	LVITEM lvitem;
 	lvitem.mask = LVIF_TEXT;
 	lvitem.cchTextMax = MAX_PATH;
-	lvitem.iSubItem = 0;
 
+	lvitem.iItem = g_indexOfItem;  //第几项
+
+	lvitem.iSubItem = 0;			//列
 	lvitem.pszText = node->name;
-	lvitem.iItem = 0;
-	ListView_InsertItem(g_hSongList, &lvitem);
+	ListView_InsertItem(g_hSongList, &lvitem);	//第一列用ListView_InsertItem
 
 	//将设备id转换成字符串
 	wchar_t strId[1024];
 	wsprintf(strId, L"%u", node->deviceId);
 
+	lvitem.iSubItem = 1;			//列
 	lvitem.pszText = strId;
-	lvitem.iItem = 1;
-	ListView_InsertItem(g_hSongList, &lvitem);
+	ListView_SetItem(g_hSongList, &lvitem);		//其它列用ListView_SetItem
+
+	g_indexOfItem++;			//递增，备下一次插入用
 
 	return 1;
 }

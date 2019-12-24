@@ -113,9 +113,12 @@ extern HWND g_hSongList;			//歌曲列表的句柄
 #define WIDTH_SONG_LIST 950
 #define HEIGHT_SONG_LIST 400
 
-//歌曲列表的表头的文字
+//歌曲列表的表头的文字,以及对应宽度
 #define TEXT_OF_LIST_COLUMN_1 L"歌曲名"
 #define TEXT_OF_LIST_COLUMN_2 L"歌曲id"
+#define WIDTH_OF_LIST_COLUMN_1 600
+#define WIDTH_OF_LIST_COLUMN_2 (WIDTH_SONG_LIST-WIDTH_OF_LIST_COLUMN_1)
+
 
 //进度条（画成一个矩形）
 #define WIDTH_PROGRESS_BAR 950

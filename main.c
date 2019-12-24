@@ -4,30 +4,17 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 {
+	
+	
+	initWin(hInstance, pre, pCmdLine, nCmdShow); //初始化窗口
+	
+	//打开目录，将歌曲打开并显示到列表
 	openDirectory(L"C:\\Users\\15107\\Music");
 	traverse(addSongToList);
 
-	initWin(hInstance, pre, pCmdLine, nCmdShow);
+	//事件循环
 	eventLoop();
 
-	//MusicNode* cur = g_headOfList;
-
-	//if(cur != NULL)
-	//{
-	//	do
-	//	{
-	//		wchar_t output[MAX_PATH];
-	//		wsprintf(output, L"play %s(%d)\n", cur->name, cur->deviceId);
-	//		OutputDebugString(output);
-
-	//		//尝试播放音乐
-	//		MCI_PLAY_PARMS mciPlay;
-	//		if(mciSendCommand(cur->deviceId, MCI_PLAY, MCI_WAIT, (DWORD)&mciPlay))
-	//			break;
-
-	//		cur = cur->next;
-	//	} while(cur != g_headOfList);
-	//}
 
 	return 0;
 }

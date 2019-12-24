@@ -336,11 +336,13 @@ void songListInit(HWND hParent, HINSTANCE hInstance)
 	//设置列表的列（列表的头）
 	LV_COLUMN   lvc;
 	lvc.mask = LVCF_TEXT | LVCF_WIDTH;
-	lvc.cx = WIDTH_SONG_LIST;
-	lvc.pszText = TEXT_OF_LIST_COLUMN_1;  //表头文字
+
+	lvc.cx = WIDTH_OF_LIST_COLUMN_1;		//宽度
+	lvc.pszText = TEXT_OF_LIST_COLUMN_1;	//表头文字
 	ListView_InsertColumn(hSongList, 0, &lvc);
 
-	lvc.pszText = TEXT_OF_LIST_COLUMN_2;  //表头文字
+	lvc.cx = WIDTH_OF_LIST_COLUMN_2;		//宽度
+	lvc.pszText = TEXT_OF_LIST_COLUMN_2;	//表头文字
 	ListView_InsertColumn(hSongList, 1, &lvc);
 }
 
