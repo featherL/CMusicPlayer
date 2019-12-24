@@ -39,6 +39,7 @@ extern HDC g_hdcOfMainWin;			//主窗口的设备句柄
 extern HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
 extern HBITMAP g_hBitmap;			//用来贴图的内存区域
 extern HWND g_hWin;					//主窗口句柄
+extern HWND g_hSongList;			//歌曲列表的句柄
 
 
 //----------------
@@ -112,8 +113,9 @@ extern HWND g_hWin;					//主窗口句柄
 #define WIDTH_SONG_LIST 950
 #define HEIGHT_SONG_LIST 400
 
-//歌曲列表的表头的文字（只有一列）
-#define TEXT_OF_LIST_COLUMN L"歌曲名"
+//歌曲列表的表头的文字
+#define TEXT_OF_LIST_COLUMN_1 L"歌曲名"
+#define TEXT_OF_LIST_COLUMN_2 L"歌曲id"
 
 //进度条（画成一个矩形）
 #define WIDTH_PROGRESS_BAR 950

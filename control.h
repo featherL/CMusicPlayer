@@ -31,7 +31,12 @@
 LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam); 
 
 //事件消息处理循环
-void eventLoop();  
+void eventLoop(); 
+
+//添加歌曲到歌曲列表显示，该函数作为回调函数传入traverseAllMusic
+	//node 歌曲节点
+	//返回值，给traverseAllMusic函数用
+int addSongToList(MusicNode* node);
 
 //--------------------------
 //控件事件函数的绑定相关
@@ -85,6 +90,10 @@ LRESULT winOnCommand(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam);
 //窗口创建事件,获取设备句柄等操作
 	//hWin 主窗口的句柄
 void winOnCreate(HWND hWin);
+
+//WM_NOTIFY事件处理,这里处理列表的事件
+	//hWin 主窗口句的柄
+void winOnNotify(HWND hWin);
 
 //---------------------
 //控件的处理函数

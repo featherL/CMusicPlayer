@@ -5,6 +5,7 @@
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 {
 	openDirectory(L"C:\\Users\\15107\\Music");
+	traverse(addSongToList);
 
 	initWin(hInstance, pre, pCmdLine, nCmdShow);
 	eventLoop();

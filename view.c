@@ -15,6 +15,7 @@ HDC g_hdcOfMainWin;			//主窗口的设备句柄
 HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
 HBITMAP g_hBitmap;			//用来贴图的内存区域
 HWND g_hWin;				//主窗口句柄
+HWND g_hSongList;			//歌曲列表的句柄
 
 
 //初始化窗口
@@ -330,28 +331,17 @@ void songListInit(HWND hParent, HINSTANCE hInstance)
 		NULL
 	);
 
-//	//设置列表的列（列表的头）
-//	//一共就一项
-//	LV_COLUMN   lvc;
-//	lvc.mask = LVCF_TEXT | LVCF_WIDTH;
-//	lvc.cx = WIDTH_SONG_LIST;
-//	lvc.pszText = TEXT_OF_LIST_COLUMN;  //表头文字
-//	ListView_InsertColumn(hSongList, 0, &lvc);
-//
-//
-//	LVITEM lvitem;
-//	lvitem.mask = LVIF_TEXT;
-//	lvitem.cchTextMax = MAX_PATH;
-//	lvitem.iSubItem = 0;
-//	lvitem.pszText = L"tes啊t";
-//
-//	
-//	for(int i = 0; i < 90; i++)
-//	{
-//		lvitem.iItem = i;
-//		ListView_InsertItem(hSongList, &lvitem);
-//		//ListView_SetItemText(hSongList, lvitem.iItem, 0, L"test");
-//	}
+	g_hSongList = hSongList;	//保存句柄到全局变量待用
+
+	//设置列表的列（列表的头）
+	LV_COLUMN   lvc;
+	lvc.mask = LVCF_TEXT | LVCF_WIDTH;
+	lvc.cx = WIDTH_SONG_LIST;
+	lvc.pszText = TEXT_OF_LIST_COLUMN_1;  //表头文字
+	ListView_InsertColumn(hSongList, 0, &lvc);
+
+	lvc.pszText = TEXT_OF_LIST_COLUMN_2;  //表头文字
+	ListView_InsertColumn(hSongList, 1, &lvc);
 }
 
 //绘制进度条

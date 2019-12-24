@@ -55,6 +55,32 @@ void eventLoop()
 	}
 }
 
+
+//添加歌曲到歌曲列表显示，该函数作为回调函数传入traverseAllMusic
+	//node 歌曲节点
+	//返回值，给traverseAllMusic函数用
+int addSongToList(MusicNode* node)
+{
+	LVITEM lvitem;
+	lvitem.mask = LVIF_TEXT;
+	lvitem.cchTextMax = MAX_PATH;
+	lvitem.iSubItem = 0;
+
+	lvitem.pszText = node->name;
+	lvitem.iItem = 0;
+	ListView_InsertItem(g_hSongList, &lvitem);
+
+	//将设备id转换成字符串
+	wchar_t strId[1024];
+	wsprintf(strId, L"%u", node->deviceId);
+
+	lvitem.pszText = strId;
+	lvitem.iItem = 1;
+	ListView_InsertItem(g_hSongList, &lvitem);
+
+	return 1;
+}
+
 //根据控件句柄，获取回调函
 	//hwnd 控件的句柄
 	//返回值为回调函数指针，若没有返回NULL
