@@ -14,8 +14,7 @@ void buttonInit()
 	wc.lpszClassName = CLASS_MY_BUTTON; //类名
 	wc.style = CS_DBLCLKS;  //使窗口可以接受点击事件
 
-	
-	
+
 	RegisterClassEx(&wc);  //注册窗口类
 }
 

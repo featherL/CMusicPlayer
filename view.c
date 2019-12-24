@@ -7,6 +7,11 @@ ButtonBmp* g_prevBtnBmp = NULL;  //上一首按钮的相关图片
 ButtonBmp* g_xBtnBmp = NULL;  //退出按钮的相关图片
 ButtonBmp* g_modeBtnBmp = NULL;  //模式按钮的相关图片
 
+HDC g_hdcOfMainWin;			//主窗口的设备句柄
+HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
+HBITMAP g_hBitmap;			//用来贴图的内存区域
+HWND g_hWin;					//主窗口句柄
+
 
 //初始化窗口
 void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
@@ -268,7 +273,7 @@ void songListInit(HWND hParent, HINSTANCE hInstance)
 	HWND hSongList = CreateWindow(
 		WC_LISTVIEW,
 		NULL,
-		WS_CHILD |WS_VISIBLE | LVS_REPORT ,
+		WS_CHILD |WS_VISIBLE | LBS_NOTIFY,
 		POS_X_SONG_LIST,
 		POS_Y_SONG_LIST,
 		WIDTH_SONG_LIST,
@@ -279,26 +284,55 @@ void songListInit(HWND hParent, HINSTANCE hInstance)
 		NULL
 	);
 
-	//设置列表的列（列表的头）
-	//一共就一项
-	LV_COLUMN   lvc;
-	lvc.mask = LVCF_TEXT | LVCF_WIDTH;
-	lvc.cx = WIDTH_SONG_LIST;
-	lvc.pszText = TEXT_OF_LIST_COLUMN;  //表头文字
-	ListView_InsertColumn(hSongList, 0, &lvc);
+//	//设置列表的列（列表的头）
+//	//一共就一项
+//	LV_COLUMN   lvc;
+//	lvc.mask = LVCF_TEXT | LVCF_WIDTH;
+//	lvc.cx = WIDTH_SONG_LIST;
+//	lvc.pszText = TEXT_OF_LIST_COLUMN;  //表头文字
+//	ListView_InsertColumn(hSongList, 0, &lvc);
+//
+//
+//	LVITEM lvitem;
+//	lvitem.mask = LVIF_TEXT;
+//	lvitem.cchTextMax = MAX_PATH;
+//	lvitem.iSubItem = 0;
+//	lvitem.pszText = L"tes啊t";
+//
+//	
+//	for(int i = 0; i < 90; i++)
+//	{
+//		lvitem.iItem = i;
+//		ListView_InsertItem(hSongList, &lvitem);
+//		//ListView_SetItemText(hSongList, lvitem.iItem, 0, L"test");
+//	}
+}
 
 
-	LVITEM lvitem;
-	lvitem.mask = LVIF_TEXT | LVIF_TEXT;
-	lvitem.cchTextMax = MAX_PATH;
-	lvitem.iSubItem = 0;
-	lvitem.pszText = L"test";
 
-	
-	for(int i = 0; i < 90; i++)
-	{
-		lvitem.iItem = i;
-		ListView_InsertItem(hSongList, &lvitem);
-		//ListView_SetItemText(hSongList, lvitem.iItem, 0, L"test");
-	}
+//绘制进度条
+void drawProgressBar(double persent)
+{
+	RECT rect;
+	HBRUSH bgBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);  //灰色背景
+	HBRUSH fgBrush = (HBRUSH)GetStockObject(WHITE_BRUSH);  //白色前景
+
+	rect.left = POS_X_PROGRESS_BAR;
+	rect.right = rect.left + WIDTH_PROGRESS_BAR;
+	rect.top = POS_Y_PROGRESS_BAR;
+	rect.bottom = rect.top + HEIGHT_PROGRESS_BAR;
+
+	int length = (int)(persent * WIDTH_PROGRESS_BAR / 100);
+
+	SelectObject(g_hBuffOfMainWin, g_hBitmap);		//选定一块区域才能开始作画
+	FillRect(g_hBuffOfMainWin, &rect, bgBrush);		//绘制背景
+
+	rect.right = rect.left + length;				//进度条的右端位置为左端位置加上长度
+
+	FillRect(g_hBuffOfMainWin, &rect, fgBrush);		//绘制进度条
+
+	//将缓冲的内存拷贝到真正的窗口的区域
+	BitBlt(g_hdcOfMainWin, POS_X_PROGRESS_BAR, POS_Y_PROGRESS_BAR, 
+		WIDTH_PROGRESS_BAR, HEIGHT_PROGRESS_BAR, g_hBuffOfMainWin,
+		POS_X_PROGRESS_BAR, POS_Y_PROGRESS_BAR, SRCCOPY);
 }
