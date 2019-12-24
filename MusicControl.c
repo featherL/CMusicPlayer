@@ -1,8 +1,10 @@
 #include "MusicControl.h"
 
-MusicNode* g_headOfList = NULL;			//所有歌曲的链表的头指针
-MusicNode* g_headOfPlaying = NULL;		//播放队列链表的头指针
-MusicNode* g_curNode = NULL;			//当前正在播放的歌曲
+//static让下面的全局变量仅在这个文件可见
+static MusicNode* g_headOfList = NULL;			//所有歌曲的链表的头指针
+static MusicNode* g_headOfPlaying = NULL;		//播放队列链表的头指针
+static MusicNode* g_curNode = NULL;			//当前正在播放的歌曲
+static int g_status = STATUS_STOP;				//当前的状态
 
 
 //扫描目录下的mp3文件，存入相关信息到g_headOfList指向的链表中
@@ -80,4 +82,10 @@ void appendNode(MusicNode* node, MusicNode* newNode)
 	//拼接newNode和nextNode
 	newNode->next = nextNode;
 	nextNode->pre = newNode;
+}
+
+//获取当前的状态，播放、暂停、停止
+int getStatus()
+{
+	return g_status;		//当前状态保存在了静态全局变量g_status中
 }

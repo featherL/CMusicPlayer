@@ -67,7 +67,14 @@ void winOnCreate(HWND hWin);
 //控件的处理函数
 
 //退出按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码
 LRESULT quitBtnHandler(HWND hwnd, int code);
+
+//播放按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码 
+LRESULT playBtnHandler(HWND hwnd, int code);
 
 //------------------------
 
