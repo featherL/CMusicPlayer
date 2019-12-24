@@ -54,3 +54,7 @@ int getStatus();
 //播放音乐
 	//deviceId 设备id
 int playMusic(WORD deviceId);
+
+//播放下一首音乐
+	//成功返回1，否则返回0
+int playNext();

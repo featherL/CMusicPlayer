@@ -45,7 +45,7 @@ int playMusic(WORD deviceId)
 	
 	if(flag == 1){
 		MCI_PLAY_PARMS mciPlay;
-		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, MCI_WAIT, (DWORD)&mciPlay))
+		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
 		{
 			g_curNode = cur;
 			return 1;
@@ -137,3 +137,23 @@ int getStatus()
 	return g_status;		//当前状态保存在了静态全局变量g_status中
 }
 
+//播放下一首
+int playNext()
+{
+	MusicNode* cur = g_curNode;            //获取当前的结点指针
+
+
+	if (cur->next != NULL)
+	{
+		cur = cur->next;
+		MCI_PLAY_PARMS mciPlay;
+		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
+		{
+			g_curNode = cur;
+			return 1;
+		}
+	}
+	
+
+	return 0;
+}
