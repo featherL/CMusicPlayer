@@ -40,7 +40,17 @@ typedef struct MusicNode
 	//若至少有一首歌曲成功打开，返回1，否则返回0
 int openDirectory(wchar_t *directory);
 
+//-------------------------------------------
+//遍历链表用的回调函数的类型
+	//node 遍历到的节点
+	//回调函数返回值为1表示继续遍历，否则停止遍历
+typedef int (*TraverseCallBack)(MusicNode* node);
 
+//遍历歌曲链表，对每个节点调用回调函数
+	//callBackFunc 回调函数
+void traverse(TraverseCallBack callBackFunc);
+
+//-------------------------------------------
 //添加节点到某节点后面
 	//node	要插入到哪个节点后面，这个参数不能为NULL
 	//newNode 添加的节点
@@ -74,4 +84,5 @@ int pauseCurrentMusic();
 //恢复当前歌曲播放
 	//成功返回1，否则返回0
 int resumeCurrentMusic();
+
 
