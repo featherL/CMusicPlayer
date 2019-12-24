@@ -190,3 +190,15 @@ void progressWhenNoMessage()
 
 	count++;
 }
+
+//播放按钮的事件处理函数
+LRESULT playBtnHandler(HWND hwnd, int code)
+{
+	if(code == BN_CLICKED)
+	{  //点击事件
+		
+
+	}
+
+	return 0;
+}
