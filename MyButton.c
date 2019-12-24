@@ -1,6 +1,6 @@
 #include "MyButton.h"
 
-
+//注册类等操作
 void buttonInit()
 {
 	//填充结构体
@@ -14,11 +14,12 @@ void buttonInit()
 	wc.lpszClassName = CLASS_MY_BUTTON; //类名
 	wc.style = CS_DBLCLKS;  //使窗口可以接受点击事件
 
-
 	RegisterClassEx(&wc);  //注册窗口类
 }
 
-//获取控件的ButtonData结构体的指针
+//获取控件的一些数据
+	//hwnd按钮句柄
+	//返回值为保存好的ButtonData结构体的指针
 ButtonData* getButtonData(HWND hwnd)
 {
 	ButtonData* ret;
@@ -28,6 +29,12 @@ ButtonData* getButtonData(HWND hwnd)
 	return ret;
 }
 
+//控件的过程函数
+	//hwnd 按钮句柄
+	//message 用来传入消息
+	//wParam 保存附加信息
+	//lParam 保存附加信息
+	//操作系统要求一个返回值
 LRESULT CALLBACK buttonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	TRACKMOUSEEVENT tme;
@@ -84,6 +91,8 @@ LRESULT CALLBACK buttonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 }
 
 //窗口创建后，保存传递过来的参数等等
+	//hwnd 按钮句柄
+	//lParam 保存的附加信息
 void buttonOnCreate(HWND hwnd, LPARAM lParam)
 {
 	ButtonData* btnData = (ButtonData*)malloc(sizeof(ButtonData));  //分配空间存数据
@@ -105,6 +114,8 @@ void buttonOnCreate(HWND hwnd, LPARAM lParam)
 }
 
 //窗口销毁时，做一些资源释放的操作
+	//hwnd 按钮句柄
+	//btnData 指向储存按钮控件所有数据的结构体的指针
 void buttonOnDestroy(HWND hwnd, ButtonData* btnData)
 {
 	//释放设备上下文
@@ -117,6 +128,8 @@ void buttonOnDestroy(HWND hwnd, ButtonData* btnData)
 }
 
 //绘制按钮
+	//hwnd 按钮句柄
+	//btnData 指向储存按钮控件所有数据的结构体的指针
 void buttonPaint(HWND hwnd, ButtonData* btnData)
 {
 	PAINTSTRUCT ps;
@@ -132,8 +145,9 @@ void buttonPaint(HWND hwnd, ButtonData* btnData)
 	EndPaint(hwnd, &ps);  //结束绘制
 }
 
-
 //鼠标悬停在按钮上绘制的动画
+	//hwnd 按钮句柄
+	//btnData 指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseHover(HWND hwnd, ButtonData* btnData)
 {
 	SelectObject(btnData->compatibleHdc, btnData->buttonBmp->bmps[BMP_MOUSE_HOVER]);  //选择位图
@@ -145,6 +159,8 @@ void buttonOnMouseHover(HWND hwnd, ButtonData* btnData)
 }
 
 //鼠标按下动画
+	//hwnd 按钮句柄
+	//btnData 指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseDown(HWND hwnd, ButtonData* btnData)
 {
 	SelectObject(btnData->compatibleHdc, btnData->buttonBmp->bmps[BMP_MOUSE_DOWN]);  //选择位图
@@ -155,8 +171,9 @@ void buttonOnMouseDown(HWND hwnd, ButtonData* btnData)
 	BitBlt(btnData->controlHdc, 0, 0, width, height, btnData->compatibleHdc, 0, 0, SRCCOPY);  //贴图
 }
 
-
 //鼠标松开动画
+	//hwnd 按钮句柄
+	//btnData 指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseUp(HWND hwnd, ButtonData* btnData)
 {
 	SelectObject(btnData->compatibleHdc, btnData->buttonBmp->bmps[BMP_MOUSE_HOVER]);  //选择位图，松开时鼠标还在按钮上方
@@ -167,8 +184,9 @@ void buttonOnMouseUp(HWND hwnd, ButtonData* btnData)
 	BitBlt(btnData->controlHdc, 0, 0, width, height, btnData->compatibleHdc, 0, 0, SRCCOPY);  //贴图
 }
 
-
 //鼠标离开按钮后要把按钮样子恢复
+	//hwnd 按钮句柄
+	//btnData 指向储存按钮控件所有数据的结构体的指针
 void buttonOnMouseLeave(HWND hwnd, ButtonData* btnData)
 {
 

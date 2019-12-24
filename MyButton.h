@@ -1,16 +1,13 @@
 #pragma once
 
+//win32api
 #include <Windows.h>
+
+//windows提供的按钮控件消息的宏定义
 #include <windowsx.h>
-
-
-
 
 //类名
 #define CLASS_MY_BUTTON L"MY_BUTTON"
-
-
-#define MAX_TEXT_LEN 64
 
 //---------------------
 //按钮各种状态所需的图片
@@ -44,8 +41,9 @@ typedef struct ButtonData
 //注册类等操作
 void buttonInit();
 
-//获取控件的ButtonData结构体的指针
+//获取控件的一些数据
 	//hwnd按钮句柄
+	//返回值为保存好的ButtonData结构体的指针
 ButtonData* getButtonData(HWND hwnd);
 
 //控件的过程函数
@@ -53,12 +51,13 @@ ButtonData* getButtonData(HWND hwnd);
 	//message 用来传入消息
 	//wParam 保存附加信息
 	//lParam 保存附加信息
+	//操作系统要求一个返回值
 LRESULT CALLBACK buttonProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 
 //窗口创建后，保存传递过来的参数等等
 	//hwnd 按钮句柄
-	//lParam 保存附加信息
+	//lParam 保存的附加信息
 void buttonOnCreate(HWND hwnd, LPARAM lParam);
 
 //窗口销毁时，做一些资源释放的操作

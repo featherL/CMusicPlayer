@@ -1,11 +1,13 @@
 #pragma once
 
+//win32api
 #include <Windows.h>
 
 //路径操作的函数
 #include <Shlwapi.h> 
 #pragma comment(lib,"shlwapi.lib")
 
+//标准库，要使用malloc函数
 #include <stdlib.h>
 
 //mci接口
@@ -48,11 +50,13 @@ void appendNode(MusicNode* node, MusicNode*newNode);
 	//list 指向头指针变量的指针(指针的指针！指针的指针！指针的指针!)
 void freeList(MusicNode** list);
 
-//获取当前的状态，播放、暂停、停止
+//获取当前的状态
+	//返回值为当前状态，取值为STATUS_STOP、STATUS_PAUSE、STATUS_PLAY
 int getStatus();
 
 //播放音乐
 	//deviceId 设备id
+	//播放成功返回1，否则返回0
 int playMusic(WORD deviceId);
 
 //播放下一首音乐
@@ -60,10 +64,10 @@ int playMusic(WORD deviceId);
 int playNext();
 
 //设置播放模式
-	//mode 模式
+	//mode 模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
 void setMode(int mode);
 
 //获得当前播放模式
-	//返回值为播放模式
+	//返回值为播放模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
 int getMode();
 

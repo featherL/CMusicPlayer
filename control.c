@@ -5,7 +5,12 @@
 static Handler g_handlers[MAX_LEN_FOR_HANDLER];  //存储控件的回调函数及其句柄
 static int g_lenOfHandlers = 0;  //g_handlers数组元素的个数
 
-//窗口过程函数
+//主窗口过程函数
+	//hwnd 窗口句柄
+	//message 用来传入消息
+	//wParam 保存附加信息
+	//lParam 保存附加信息
+	//操作系统要求一个返回值
 LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 {
 	switch(message)
@@ -50,7 +55,9 @@ void eventLoop()
 	}
 }
 
-//根据控件句柄hwnd，获取回调函数，若没有返回NULL
+//根据控件句柄，获取回调函
+	//hwnd 控件的句柄
+	//返回值为回调函数指针，若没有返回NULL
 CallBackFunc getCallBackFunc(HWND hwnd)
 {
 	int i;
@@ -63,7 +70,9 @@ CallBackFunc getCallBackFunc(HWND hwnd)
 	return NULL;  //不存在该控件的回调函数
 }
 
-//给控件hwnd绑定func回调函数
+//给控件绑定回调函数
+	//hwnd 控件的句柄
+	//func 回调函数指针
 void bindCallBackFunc(HWND hwnd, CallBackFunc func)
 {
 	if(g_lenOfHandlers < MAX_LEN_FOR_HANDLER)
@@ -125,6 +134,9 @@ void releaseBmpResource(ButtonBmp* btnBmp)
 }
 
 //鼠标点击测试事件，当点击按住在顶部一定的区域，让窗口拖动
+	//hWin 主窗口的句柄
+	//lParam 主窗口过程函数中的lParam参数
+	//该函数返回值作为主窗口过程函数的返回值返回
 LRESULT winOnNcHitTest(HWND hWin, LPARAM lParam)
 {
 	POINT point;
@@ -149,6 +161,11 @@ LRESULT winOnNcHitTest(HWND hWin, LPARAM lParam)
 }
 
 //命令事件，处理控件发来的消息
+	//hWin 主窗口的句柄
+	//message 主窗口过程函数中的message参数
+	//wParam 主窗口过程函数中的wParam参数
+	//lParam 主窗口过程函数中的lParam参数
+	//该函数返回值作为主窗口过程函数的返回值返回
 LRESULT winOnCommand(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	int code;  //通知码
@@ -175,6 +192,8 @@ void winOnCreate(HWND hWin)
 }
 
 //退出按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码
 LRESULT quitBtnHandler(HWND hwnd, int code)
 {
 	if(code == BN_CLICKED)
@@ -204,6 +223,8 @@ void progressWhenNoMessage()
 }
 
 //播放按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码
 LRESULT playBtnHandler(HWND hwnd, int code)
 {
 	static int status = STATUS_PLAY;
@@ -225,7 +246,9 @@ LRESULT playBtnHandler(HWND hwnd, int code)
 	return 0;
 }
 
-//模式按钮的事件处理函数
+//播放按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码 
 LRESULT modeBtnHandler(HWND hwnd, int code)
 {
 	static int status = MODE_ORDER;

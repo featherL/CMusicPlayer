@@ -1,11 +1,21 @@
 #pragma once
 
+//win32api
 #include <Windows.h>
+
+//control模块
 #include "control.h"
+
+//自定义的按钮控件
 #include "MyButton.h"
+
+//管理音乐的播放
 #include "MusicControl.h"
 
-//windows提供控件的库
+//标准库，要使用malloc函数
+#include <stdlib.h>
+
+//windows提供控件的库，需要使用列表控件
 #include <CommCtrl.h>
 #pragma comment(lib, "comctl32.lib")
 
@@ -122,6 +132,9 @@ extern HWND g_hWin;					//主窗口句柄
 
 //初始化窗口
 	//hInstance 程序句柄
+	//pre		该参数windows不使用
+	//pCmdLind	命令行参数
+	//nCmdShow	窗口显示的方式
 void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow);
 
 //创建播放按钮
@@ -139,7 +152,7 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance);
 	//hInstance 程序句柄
 void prevButtonInit(HWND hParent, HINSTANCE hInstance);
 
-//创建x按钮
+//创建退出按钮
 	//hParent 父窗口句柄
 	//hInstance 程序句柄
 void xButtonInit(HWND hParent, HINSTANCE hInstance);

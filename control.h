@@ -1,9 +1,18 @@
 #pragma once
 
+//win32api
 #include <Windows.h>
+
+//view模块
 #include "view.h"
+
+//自定义的按钮控件
 #include "MyButton.h"
+
+//标准库，要使用malloc函数
 #include <stdlib.h>
+
+//管理音乐的播放
 #include "MusicControl.h"
 
 /*
@@ -13,7 +22,12 @@
 //最大可绑定回调函数的事件数
 #define MAX_LEN_FOR_HANDLER 64
 
-//窗口过程函数
+//主窗口过程函数
+	//hwnd 窗口句柄
+	//message 用来传入消息
+	//wParam 保存附加信息
+	//lParam 保存附加信息
+	//操作系统要求一个返回值
 LRESULT CALLBACK windowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam); 
 
 //事件消息处理循环
@@ -22,6 +36,9 @@ void eventLoop();
 //--------------------------
 //控件事件函数的绑定相关
 //回调函数的类型
+	//hwnd 句柄
+	//code 通知码
+	//该函数返回值作为主窗口过程函数的返回值返回
 typedef LRESULT(*CallBackFunc)(HWND hwnd, int code);
 
 typedef struct Handler  //存储控件句柄与其回调函数
@@ -30,10 +47,14 @@ typedef struct Handler  //存储控件句柄与其回调函数
 	CallBackFunc func;  //回调函数
 } Handler;
 
-//根据控件句柄hwnd，获取回调函数，若没有返回NULL
+//根据控件句柄，获取回调函
+	//hwnd 控件的句柄
+	//返回值为回调函数指针，若没有返回NULL
 CallBackFunc getCallBackFunc(HWND hwnd); 
 
-//给控件hwnd绑定func回调函数
+//给控件绑定回调函数
+	//hwnd 控件的句柄
+	//func 回调函数指针
 void bindCallBackFunc(HWND hwnd, CallBackFunc func); 
 
 //---------------------
@@ -49,6 +70,7 @@ void releaseBmpResource(ButtonBmp* btnBmp);
 //鼠标点击测试事件，当点击按住在顶部一定的区域，让窗口拖动
 	//hWin 主窗口的句柄
 	//lParam 主窗口过程函数中的lParam参数
+	//该函数返回值作为主窗口过程函数的返回值返回
 LRESULT winOnNcHitTest(HWND hWin, LPARAM lParam);
 
 
@@ -57,6 +79,7 @@ LRESULT winOnNcHitTest(HWND hWin, LPARAM lParam);
 	//message 主窗口过程函数中的message参数
 	//wParam 主窗口过程函数中的wParam参数
 	//lParam 主窗口过程函数中的lParam参数
+	//该函数返回值作为主窗口过程函数的返回值返回
 LRESULT winOnCommand(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam);
 
 //窗口创建事件,获取设备句柄等操作

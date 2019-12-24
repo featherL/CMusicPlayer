@@ -2,7 +2,6 @@
 
 //static让下面的全局变量仅在这个文件可见
 static MusicNode* g_headOfList = NULL;			//所有歌曲的链表的头指针
-static MusicNode* g_headOfPlaying = NULL;		//播放队列链表的头指针
 static MusicNode* g_curNode = NULL;			//当前正在播放的歌曲
 static int g_mode = MODE_ORDER;					//初始为顺序播放模式
 static int g_status = STATUS_STOP;				//当前的状态
@@ -29,27 +28,37 @@ void freeList(MusicNode** list)
 
 //播放音乐
 	//deviceId 设备id
+	//播放成功返回1，否则返回0
 int playMusic(WORD deviceId)
 {
 	MusicNode* cur;
 	int flag = 0;
-	cur = g_headOfPlaying;
-	do
+	cur = g_headOfList;
+	
+	if(cur != NULL)
 	{
-		if (cur->deviceId == deviceId) {
-			flag = 1;
-			break;
-		}
-		cur = cur->next;
-	} while (cur != g_headOfPlaying);
-	if(flag == 1){
-		MCI_PLAY_PARMS mciPlay;
-		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
+		do
+		{	//找到deviceId对应的节点
+			if(cur->deviceId == deviceId)
+			{
+				flag = 1;
+				break;
+			}
+			cur = cur->next;
+		} while(cur != g_headOfList);
+
+		if(flag == 1)
 		{
-			g_curNode = cur;
-			return 1;
+			MCI_PLAY_PARMS mciPlay;
+			if(0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
+			{  //播放成功
+				g_curNode = cur;			//保存当前播放的节点
+				g_status = STATUS_PLAY;		//更改当前状态
+				return 1;
+			}
 		}
 	}
+
 	return 0;
 }
 
@@ -130,13 +139,15 @@ void appendNode(MusicNode* node, MusicNode* newNode)
 	nextNode->pre = newNode;
 }
 
-//获取当前的状态，播放、暂停、停止
+//获取当前的状态
+	//返回值为当前状态，取值为STATUS_STOP、STATUS_PAUSE、STATUS_PLAY
 int getStatus()
 {
 	return g_status;		//当前状态保存在了静态全局变量g_status中
 }
 
-//播放下一首
+//播放下一首音乐
+	//成功返回1，否则返回0
 int playNext()
 {
 	MusicNode* cur = g_curNode;            //获取当前的结点指针
@@ -158,12 +169,14 @@ int playNext()
 }
 
 //设置播放模式
+	//mode 模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
 void setMode(int mode)
 {
 	g_mode = mode;
 }
 
-//获得当前模式
+//获得当前播放模式
+	//返回值为播放模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
 int getMode()
 {
 	return g_mode;

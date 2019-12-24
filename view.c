@@ -18,6 +18,10 @@ HWND g_hWin;				//主窗口句柄
 
 
 //初始化窗口
+	//hInstance 程序句柄
+	//pre		该参数windows不使用
+	//pCmdLind	命令行参数
+	//nCmdShow	窗口显示的方式
 void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 {
 	buttonInit();          //注册自定义的按钮类
@@ -59,7 +63,9 @@ void initWin(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 	ShowWindow(hWin, nCmdShow);             //显示窗口
 }
 
-
+//创建模式按钮
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
 void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 {
 	g_modeBtnBmpCur = (ButtonBmp*)malloc(sizeof(ButtonBmp)); //当前界面所需要的图片组
@@ -123,7 +129,9 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 	bindCallBackFunc(hModeBtn, modeBtnHandler);
 }
 
-
+//创建退出按钮
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
 void xButtonInit(HWND hParent, HINSTANCE hInstance)
 {
 	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
@@ -163,7 +171,9 @@ void xButtonInit(HWND hParent, HINSTANCE hInstance)
 	bindCallBackFunc(hXBtn, quitBtnHandler);            
 }
 
-
+//创建prev按钮
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
 void prevButtonInit(HWND hParent, HINSTANCE hInstance)
 {
 	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
@@ -202,7 +212,9 @@ void prevButtonInit(HWND hParent, HINSTANCE hInstance)
 	//bindCallBackFunc(hPrevBtn, func); 
 }
 
-
+//创建next按钮
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
 void nextButtonInit(HWND hParent, HINSTANCE hInstance) 
 {
 	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
@@ -241,7 +253,9 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance)
 	//bindCallBackFunc(hNextBtn, func); 
 }
 
-
+//创建播放按钮
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
 void playButtonInit(HWND hParent, HINSTANCE hInstance)
 {
 	g_playBtnBmpCur = (ButtonBmp*)malloc(sizeof(ButtonBmp));
@@ -297,6 +311,9 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 	bindCallBackFunc(hPlayBtn, playBtnHandler);
 }
 
+//创建歌曲列表
+	//hParent 父窗口句柄
+	//hInstance 程序句柄
 void songListInit(HWND hParent, HINSTANCE hInstance)
 {
 	HWND hSongList = CreateWindow(
@@ -337,9 +354,8 @@ void songListInit(HWND hParent, HINSTANCE hInstance)
 //	}
 }
 
-
-
 //绘制进度条
+	//persent 进度条的百分比  persent为98则表示98%
 void drawProgressBar(double persent)
 {
 	RECT rect;
