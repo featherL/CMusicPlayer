@@ -74,6 +74,10 @@ int playMusic(WORD deviceId);
 	//成功返回1，否则返回0
 int playNext();
 
+//播放上一首音乐
+	//成功返回1，否则返回0
+int playPrev();
+
 //循环切换播放模式
 	//返回切换后的模式
 int switchMode();
@@ -93,5 +97,9 @@ DWORD getCurrentMusicPos();
 //获取当前歌曲的长度
 	//返回值为当前歌曲的长度，若当前无歌曲播放或者暂停，则返回1
 DWORD getCurrentMusicLenght();
+
+//停止当前歌曲播放
+	//成功返回1，否则返回0
+int stopCurrentMusic();
 
 

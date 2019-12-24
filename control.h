@@ -112,6 +112,16 @@ LRESULT playBtnHandler(HWND hwnd, int code);
 	//hwnd 按钮的句柄
 	//code 通知码 
 LRESULT modeBtnHandler(HWND hwnd, int code);
+
+//切换下一首按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码 
+LRESULT nextBtnHandler(HWND hwnd, int code);
+
+//切换上一首按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码 
+LRESULT prevBtnHandler(HWND hwnd, int code);
 //------------------------
 
 //没有消息时的逻辑，循环获取音乐的进度，更新进度条，及时播放下一首

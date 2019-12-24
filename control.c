@@ -327,3 +327,40 @@ LRESULT modeBtnHandler(HWND hwnd, int code)
 
 	return 0;
 }
+
+//切换下一首按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码 
+LRESULT nextBtnHandler(HWND hwnd, int code)
+{
+	if (code == BN_CLICKED)
+	{  //点击事件
+
+		//停止当前歌曲播放
+
+
+		//播放下一首歌
+		playNext();
+	}
+
+	return 0;
+}
+
+//切换上一首按钮的事件处理函数
+	//hwnd 按钮的句柄
+	//code 通知码 
+LRESULT prevBtnHandler(HWND hwnd, int code)
+{
+	if (code == BN_CLICKED)
+	{  //点击事件
+
+		//停止播放当前歌曲
+		
+
+
+		//播放上一首歌
+		playPrev();
+	}
+
+	return 0;
+}

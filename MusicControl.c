@@ -247,6 +247,28 @@ int playNext()
 	return 0;
 }
 
+//播放上一首音乐
+	//成功返回1，否则返回0
+int playPrev()
+{
+	MusicNode* cur = g_curNode;            //获取当前的结点指针
+
+
+	if (cur->pre != NULL)
+	{
+		cur = cur->pre;
+		MCI_PLAY_PARMS mciPlay;
+		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
+		{
+			g_curNode = cur;
+			return 1;
+		}
+	}
+
+
+	return 0;
+}
+
 //循环切换播放模式
 	//返回切换后的模式
 int switchMode()
@@ -256,3 +278,39 @@ int switchMode()
 	return g_allModes[g_modeIndex];		//返回模式
 }
 
+//遍历链表用的回调函数的类型
+	//node 遍历到的节点
+	//回调函数返回值为1表示继续遍历，否则停止遍历
+typedef int (*TraverseCallBack)(MusicNode* node);
+
+//遍历歌曲链表，对每个节点调用回调函数
+	//callBackFunc 回调函数
+void traverse(TraverseCallBack callBackFunc)
+{
+	MusicNode* cur;
+	cur = g_headOfList;
+	if (cur != NULL)
+	{   
+		do
+		{
+			if (!callBackFunc(cur)) //调用回调函数
+			{
+				break;
+			}
+			cur = cur->next;
+		} while (cur != g_headOfList);
+	}	
+}
+
+//停止当前歌曲播放
+	//成功返回1，否则返回0
+int stopCurrentMusic()
+{
+	if (g_curNode != NULL)
+	{
+		if(0 == mciSendCommand(g_curNode->deviceId,MCI_STOP,NULL,NULL))
+			return 1;
+	}
+	else
+		return 0;
+}
