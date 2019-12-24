@@ -4,7 +4,7 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 {
-	openDirectory(L"C:\\Users\\15107\\Music");
+	openDirectory(L"C:\\Users\\13240\\Music");
 
 	initWin(hInstance, pre, pCmdLine, nCmdShow);
 	eventLoop();
