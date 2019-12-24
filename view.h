@@ -17,6 +17,7 @@
 extern ButtonBmp * g_playBtnBmpCur;		//播放按钮的当前使用的一套图片
 extern ButtonBmp* g_playBtnBmp1;		//播放按钮的没有播放时的一套图片
 extern ButtonBmp* g_playBtnBmp2;		//播放按钮播放时的一套图片
+extern ButtonBmp* g_nextBtnBmp;			//下一首按钮的相关图片
 extern ButtonBmp* g_prevBtnBmp;			//上一首按钮的相关图片
 extern ButtonBmp* g_xBtnBmp;			//退出按钮的相关图片
 extern ButtonBmp* g_modeBtnBmpCur;		//模式按钮的当前使用的一套相关图片

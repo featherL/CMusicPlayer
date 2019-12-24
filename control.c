@@ -82,7 +82,7 @@ void bindCallBackFunc(HWND hwnd, CallBackFunc func)
 void winOnDestroy()
 {
 	//释放按钮的资源
-	/*
+
 	//播放按钮
 	releaseBmpResource(g_playBtnBmp1); 
 	releaseBmpResource(g_playBtnBmp2);
@@ -93,7 +93,10 @@ void winOnDestroy()
 	releaseBmpResource(g_nextBtnBmp);
 
 	//模式按钮
-	releaseBmpResource(g_modeBtnBmp);
+	releaseBmpResource(g_modeBtnBmp1);
+	releaseBmpResource(g_modeBtnBmp2);
+	releaseBmpResource(g_modeBtnBmp3);
+	free(g_modeBtnBmpCur);
 	
 	//退出按钮
 	releaseBmpResource(g_xBtnBmp);
@@ -106,7 +109,7 @@ void winOnDestroy()
 	DeleteDC(g_hBuffOfMainWin);
 	ReleaseDC(g_hWin, g_hdcOfMainWin);
 
-	*/
+	
 	PostQuitMessage(0);  //发送WM_QUIT消息，这样消息循环的才能退出
 }
 
