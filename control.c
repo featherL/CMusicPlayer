@@ -1,9 +1,9 @@
 #include "control.h"
 
-
 //static属性让全局变量，仅在该文件可见
-static Handler g_handlers[MAX_LEN_FOR_HANDLER];  //存储控件的回调函数及其句柄
-static int g_lenOfHandlers = 0;  //g_handlers数组元素的个数
+static Handler g_handlers[MAX_LEN_FOR_HANDLER];		//存储控件的回调函数及其句柄
+static int g_lenOfHandlers = 0;						//g_handlers数组元素的个数
+static WORD g_select = 1;							//列表选中的歌曲对应的设备id
 
 //主窗口过程函数
 	//hwnd 窗口句柄
@@ -227,19 +227,28 @@ void progressWhenNoMessage()
 	//code 通知码
 LRESULT playBtnHandler(HWND hwnd, int code)
 {
-	static int status = STATUS_PLAY;
 	if(code == BN_CLICKED)
 	{  //点击事件
-		//播放
-		
-		playNext();
-		
-		//int status = getStatus();
-
+		int status = getStatus();  //获取播放状态
 		if(status == STATUS_PLAY)
-			status = STATUS_PAUSE;
+		{	//正在播放，点击按钮则为暂停播放
+			
+			//暂停播放
+
+		}
 		else
-			status = STATUS_PLAY;
+		{  //播放歌曲
+			if(!playMusic(g_select))
+			{ //播放不成功
+				//输出调试信息
+				wchar_t output[1024];
+				wsprintf(output, L"调用出错:playMusic(%d)\n", g_select);
+				OutputDebugString(output);
+			}
+		}
+
+		//获取操作后的状态
+		status = getStatus();
 
 		//切换按钮的图片
 		switchPlayBtnBmp(hwnd, status);
@@ -253,21 +262,14 @@ LRESULT playBtnHandler(HWND hwnd, int code)
 	//code 通知码 
 LRESULT modeBtnHandler(HWND hwnd, int code)
 {
-	static int status = MODE_ORDER;
 	if (code == BN_CLICKED)
 	{  //点击事件
 
-		//int status = getStatus();
-
-		if (status == MODE_LOOP)        
-			status = MODE_ORDER;
-		else if (status == MODE_ORDER)
-			status = MODE_RANDOWM;
-		else
-			status = MODE_LOOP;
+		//切换播放模式，并返回切换后的模式代表的值
+		int mode = switchMode();
 
 		//切换按钮的图片
-		switchModeBtnBmp(hwnd, status);
+		switchModeBtnBmp(hwnd, mode);
 	}
 
 	return 0;

@@ -2,8 +2,10 @@
 
 //static让下面的全局变量仅在这个文件可见
 static MusicNode* g_headOfList = NULL;			//所有歌曲的链表的头指针
-static MusicNode* g_curNode = NULL;			//当前正在播放的歌曲
-static int g_mode = MODE_ORDER;					//初始为顺序播放模式
+static MusicNode* g_curNode = NULL;				//当前正在播放的歌曲
+static int g_allModes[] = { MODE_LOOP, MODE_ORDER, MODE_RANDOWM };	//所有切换模式
+static int g_sizeOfAllModes = 3;				//g_allModes数组元素的个数
+static int g_modeIndex = 0;						//g_allModes数组的下标，表示当前模式，初始为循环播放模式
 static int g_status = STATUS_STOP;				//当前的状态
 
 //释放头指针指向的链表的所有节点
@@ -168,17 +170,12 @@ int playNext()
 	return 0;
 }
 
-//设置播放模式
-	//mode 模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
-void setMode(int mode)
+//循环切换播放模式
+	//返回切换后的模式
+int switchMode()
 {
-	g_mode = mode;
-}
+	g_modeIndex = (g_modeIndex + 1) % g_sizeOfAllModes;  //循环更改播放模式
 
-//获得当前播放模式
-	//返回值为播放模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
-int getMode()
-{
-	return g_mode;
+	return g_allModes[g_modeIndex];		//返回模式
 }
 

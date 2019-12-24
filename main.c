@@ -4,11 +4,10 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE pre, PWSTR pCmdLine, int nCmdShow)
 {
+	openDirectory(L"C:\\Users\\15107\\Music");
+
 	initWin(hInstance, pre, pCmdLine, nCmdShow);
 	eventLoop();
-
-	//openDirectory(L"C:\\Users\\15107\\Music");
-	
 
 	//MusicNode* cur = g_headOfList;
 

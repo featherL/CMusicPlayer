@@ -63,11 +63,7 @@ int playMusic(WORD deviceId);
 	//成功返回1，否则返回0
 int playNext();
 
-//设置播放模式
-	//mode 模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
-void setMode(int mode);
-
-//获得当前播放模式
-	//返回值为播放模式，取值为MODE_ORDER、MODE_LOOP、MODE_RANDOWM
-int getMode();
+//循环切换播放模式
+	//返回切换后的模式
+int switchMode();
 

@@ -108,7 +108,7 @@ void modeButtonInit(HWND hParent, HINSTANCE hInstance)
 		WIDTH_MODE_BUTTON, HEIGHT_MODE_BUTTON, LR_LOADFROMFILE);
 
 
-	memcpy(g_modeBtnBmpCur, g_modeBtnBmp1, sizeof(ButtonBmp));        //初始显示循环图片
+	memcpy(g_modeBtnBmpCur, g_modeBtnBmp1, sizeof(ButtonBmp));        //初始为循环播放的图片
 
 
 	HWND hModeBtn = CreateWindow(
