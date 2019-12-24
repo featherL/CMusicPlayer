@@ -44,6 +44,10 @@ int openDirectory(wchar_t *directory);
 	//newNode 添加的节点
 void appendNode(MusicNode* node, MusicNode*newNode);
 
+//释放头指针指向的链表的所有节点
+	//list 指向头指针变量的指针(指针的指针！指针的指针！指针的指针!)
+void freeList(MusicNode** list);
+
 //获取当前的状态，播放、暂停、停止
 int getStatus();
 
