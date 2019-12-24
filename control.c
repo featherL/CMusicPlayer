@@ -231,7 +231,9 @@ LRESULT playBtnHandler(HWND hwnd, int code)
 	if(code == BN_CLICKED)
 	{  //点击事件
 		//播放
-
+		
+		playNext();
+		
 		//int status = getStatus();
 
 		if(status == STATUS_PLAY)
