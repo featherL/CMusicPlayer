@@ -67,3 +67,11 @@ int playNext();
 	//返回切换后的模式
 int switchMode();
 
+//暂停当前歌曲播放
+	//成功返回1，否则返回0
+int pauseCurrentMusic();
+
+//恢复当前歌曲播放
+	//成功返回1，否则返回0
+int resumeCurrentMusic();
+

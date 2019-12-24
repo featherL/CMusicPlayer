@@ -8,6 +8,41 @@ static int g_sizeOfAllModes = 3;				//g_allModes数组元素的个数
 static int g_modeIndex = 0;						//g_allModes数组的下标，表示当前模式，初始为循环播放模式
 static int g_status = STATUS_STOP;				//当前的状态
 
+
+//暂停当前歌曲播放
+	//成功返回1，否则返回0
+int pauseCurrentMusic()
+{
+	if(g_curNode != NULL && g_status == STATUS_PLAY)
+	{
+		MCI_GENERIC_PARMS mciPause;
+		if(0 == mciSendCommand(g_curNode->deviceId, MCI_PAUSE, 0, (DWORD)&mciPause))
+		{
+			g_status = STATUS_PAUSE;    //设置状态为暂停
+			return 1;					//成功
+		}
+	}
+
+	return 0;		//失败
+}
+
+//恢复当前歌曲播放
+	//成功返回1，否则返回0
+int resumeCurrentMusic()
+{
+	if(g_curNode != NULL && g_status == STATUS_PAUSE)
+	{
+		MCI_GENERIC_PARMS mciResume;
+		if(0 == mciSendCommand(g_curNode->deviceId, MCI_RESUME, 0, &mciResume))
+		{
+			g_status = STATUS_PLAY;		//设置状态为正在播放
+			return 1;					//成功
+		}
+	}
+
+	return 0;		//失败
+}
+
 //释放头指针指向的链表的所有节点
 	//list 指向头指针变量的指针(指针的指针！指针的指针！指针的指针!)
 void freeList(MusicNode** list)

@@ -234,12 +234,30 @@ LRESULT playBtnHandler(HWND hwnd, int code)
 		{	//正在播放，点击按钮则为暂停播放
 			
 			//暂停播放
+			if(!pauseCurrentMusic())
+			{ //调用失败
+				//输出调试信息
+				wchar_t output[1024];
+				wsprintf(output, L"调用出错:pauseCurrentMusic()\n");
+				OutputDebugString(output);
+			}
 
 		}
+		else if(status == STATUS_PAUSE)
+		{  //暂停状态则恢复播放
+			//恢复播放
+			if(!resumeCurrentMusic())
+			{ //调用失败
+				//输出调试信息
+				wchar_t output[1024];
+				wsprintf(output, L"调用出错:resumeCurrentMusic()\n");
+				OutputDebugString(output);
+			}
+		}
 		else
-		{  //播放歌曲
+		{  //STATUS_STOP 未开始播放，则开始播放
 			if(!playMusic(g_select))
-			{ //播放不成功
+			{ //调用失败
 				//输出调试信息
 				wchar_t output[1024];
 				wsprintf(output, L"调用出错:playMusic(%d)\n", g_select);
