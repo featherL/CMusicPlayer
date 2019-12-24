@@ -1,7 +1,8 @@
 #include "view.h"
 
-ButtonBmp* g_playBtnBmp = NULL;  //播放按钮的相关图片
-ButtonBmp* g_playBtnBmp2 = NULL;  //暂停按钮的相关图片
+ButtonBmp * g_playBtnBmpCur = NULL;		//播放按钮的当前使用的一套图片
+ButtonBmp* g_playBtnBmp1 = NULL;		//播放按钮的没有播放时的一套图片
+ButtonBmp* g_playBtnBmp2 = NULL;		//播放按钮播放时的一套图片
 ButtonBmp* g_nextBtnBmp = NULL;   //下一首按钮的相关图片
 ButtonBmp* g_prevBtnBmp = NULL;   //上一首按钮的相关图片
 ButtonBmp* g_xBtnBmp = NULL;      //退出按钮的相关图片
@@ -9,7 +10,6 @@ ButtonBmp* g_modeBtnBmpCur = NULL;//模式按钮的当前使用的一套相关图片
 ButtonBmp* g_modeBtnBmp1 = NULL;  //模式按钮顺序播放使用的相关图片
 ButtonBmp* g_modeBtnBmp2 = NULL;  //模式按钮循环播放使用的相关图片
 ButtonBmp* g_modeBtnBmp3 = NULL;  //模式按钮随机播放使用的相关图片
-
 
 HDC g_hdcOfMainWin;			//主窗口的设备句柄
 HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
@@ -243,30 +243,27 @@ void nextButtonInit(HWND hParent, HINSTANCE hInstance)
 
 void playButtonInit(HWND hParent, HINSTANCE hInstance)
 {
+	g_playBtnBmpCur = (ButtonBmp*)malloc(sizeof(ButtonBmp));
+	g_playBtnBmp1 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
+	g_playBtnBmp2 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
 
-	
-	ButtonBmp* btnBmp = (ButtonBmp*)malloc(sizeof(ButtonBmp));
-
-	g_playBtnBmp = btnBmp;
-	
 	//加载图片资源
 	
 	//未播放用的一套动画
 	//静态
-	btnBmp->bmps[BMP_STATIC] = LoadImage(0, BMP_PAUSE_STATIC_PLAY_BUTTON, IMAGE_BITMAP, 
+	g_playBtnBmp1->bmps[BMP_STATIC] = LoadImage(0, BMP_PAUSE_STATIC_PLAY_BUTTON, IMAGE_BITMAP,
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
 
 	//鼠标悬停
-	btnBmp->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_PAUSE_HOVER_PLAY_BUTTON, IMAGE_BITMAP,
+	g_playBtnBmp1->bmps[BMP_MOUSE_HOVER] = LoadImage(0, BMP_PAUSE_HOVER_PLAY_BUTTON, IMAGE_BITMAP,
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
 
 	//鼠标按下
-	btnBmp->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_MOUSE_DOWN_PLAY_BUTTON, IMAGE_BITMAP,
+	g_playBtnBmp1->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_MOUSE_DOWN_PLAY_BUTTON, IMAGE_BITMAP,
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
 
 
 	//另一套图，播放时用的一套动画
-	g_playBtnBmp2 = (ButtonBmp*)malloc(sizeof(ButtonBmp));
 	g_playBtnBmp2->bmps[BMP_STATIC] = LoadImage(0, BMP_PLAY_STATIC_PLAY_BUTTON, IMAGE_BITMAP,
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);
 
@@ -276,6 +273,9 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 	g_playBtnBmp2->bmps[BMP_MOUSE_DOWN] = LoadImage(0, BMP_MOUSE_DOWN_PLAY_BUTTON, IMAGE_BITMAP,
 		WIDTH_PLAY_BUTTON, HEIGHT_PLAY_BUTTON, LR_LOADFROMFILE);  //这张图和第一套的一样
 
+	//选第一套图作为当前的使用的一套图
+	//利用内存拷贝的方式把内容复制一份
+	memcpy(g_playBtnBmpCur, g_playBtnBmp1, sizeof(ButtonBmp));
 
 	HWND hPlayBtn = CreateWindow(
 		CLASS_MY_BUTTON,
@@ -288,12 +288,12 @@ void playButtonInit(HWND hParent, HINSTANCE hInstance)
 		hParent,
 		NULL,
 		hInstance,
-		(LPARAM)btnBmp   //关于按钮图片的指针，作为参数传入
+		(LPARAM)g_playBtnBmpCur   //关于按钮图片的指针，作为参数传入
 		);
 
 
 	//绑定按钮点击事件
-	//bindCallBackFunc(hPlayBtn, func); 
+	bindCallBackFunc(hPlayBtn, playBtnHandler);
 }
 
 void songListInit(HWND hParent, HINSTANCE hInstance)
@@ -363,4 +363,23 @@ void drawProgressBar(double persent)
 	BitBlt(g_hdcOfMainWin, POS_X_PROGRESS_BAR, POS_Y_PROGRESS_BAR, 
 		WIDTH_PROGRESS_BAR, HEIGHT_PROGRESS_BAR, g_hBuffOfMainWin,
 		POS_X_PROGRESS_BAR, POS_Y_PROGRESS_BAR, SRCCOPY);
+}
+
+//切换播放按钮的图片
+	//hwnd 按钮句柄
+	//status 按钮的状态
+void switchPlayBtnBmp(HWND hwnd, int status)
+{
+	if(status == STATUS_PLAY)
+	{ //播放状态
+		memcpy(g_playBtnBmpCur, g_playBtnBmp2, sizeof(ButtonBmp));
+	}
+	else
+	{ //暂停状态
+		memcpy(g_playBtnBmpCur, g_playBtnBmp1, sizeof(ButtonBmp));
+	}
+
+	//刷新按钮
+	InvalidateRect(hwnd, NULL, FALSE);
+	UpdateWindow(hwnd);
 }

@@ -46,3 +46,7 @@ void appendNode(MusicNode* node, MusicNode*newNode);
 
 //获取当前的状态，播放、暂停、停止
 int getStatus();
+
+//播放音乐
+	//deviceId 设备id
+int playMusic(WORD deviceId);

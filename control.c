@@ -82,11 +82,20 @@ void bindCallBackFunc(HWND hwnd, CallBackFunc func)
 void winOnDestroy()
 {
 	//释放按钮的资源
-	releaseBmpResource(g_playBtnBmp); 
+	/*
+	//播放按钮
+	releaseBmpResource(g_playBtnBmp1); 
 	releaseBmpResource(g_playBtnBmp2);
+	free(g_playBtnBmpCur);
+
+	//上一首，下一首按钮
 	releaseBmpResource(g_prevBtnBmp);
 	releaseBmpResource(g_nextBtnBmp);
+
+	//模式按钮
 	releaseBmpResource(g_modeBtnBmp);
+	
+	//退出按钮
 	releaseBmpResource(g_xBtnBmp);
 
 	//删除内存位图
@@ -97,7 +106,7 @@ void winOnDestroy()
 	DeleteDC(g_hBuffOfMainWin);
 	ReleaseDC(g_hWin, g_hdcOfMainWin);
 
-
+	*/
 	PostQuitMessage(0);  //发送WM_QUIT消息，这样消息循环的才能退出
 }
 
@@ -194,10 +203,20 @@ void progressWhenNoMessage()
 //播放按钮的事件处理函数
 LRESULT playBtnHandler(HWND hwnd, int code)
 {
+	static int status = STATUS_PLAY;
 	if(code == BN_CLICKED)
 	{  //点击事件
-		
+		//播放
 
+		//int status = getStatus();
+
+		if(status == STATUS_PLAY)
+			status = STATUS_PAUSE;
+		else
+			status = STATUS_PLAY;
+
+		//切换按钮的图片
+		switchPlayBtnBmp(hwnd, status);
 	}
 
 	return 0;

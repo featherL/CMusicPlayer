@@ -14,14 +14,15 @@
 */
 
 //各种位图资源
-extern ButtonBmp* g_playBtnBmp;	//播放按钮的相关图片
-extern ButtonBmp* g_playBtnBmp2;	//暂停按钮的相关图片
-extern ButtonBmp* g_prevBtnBmp;	//上一首按钮的相关图片
-extern ButtonBmp* g_xBtnBmp;		//退出按钮的相关图片
-extern ButtonBmp* g_modeBtnBmpCur;	//模式按钮的当前使用的一套相关图片
-extern ButtonBmp* g_modeBtnBmp1;	//模式按钮顺序播放使用的相关图片
-extern ButtonBmp* g_modeBtnBmp2;	//模式按钮循环播放使用的相关图片
-extern ButtonBmp* g_modeBtnBmp3;	//模式按钮随机播放使用的相关图片
+extern ButtonBmp * g_playBtnBmpCur;		//播放按钮的当前使用的一套图片
+extern ButtonBmp* g_playBtnBmp1;		//播放按钮的没有播放时的一套图片
+extern ButtonBmp* g_playBtnBmp2;		//播放按钮播放时的一套图片
+extern ButtonBmp* g_prevBtnBmp;			//上一首按钮的相关图片
+extern ButtonBmp* g_xBtnBmp;			//退出按钮的相关图片
+extern ButtonBmp* g_modeBtnBmpCur;		//模式按钮的当前使用的一套相关图片
+extern ButtonBmp* g_modeBtnBmp1;		//模式按钮顺序播放使用的相关图片
+extern ButtonBmp* g_modeBtnBmp2;		//模式按钮循环播放使用的相关图片
+extern ButtonBmp* g_modeBtnBmp3;		//模式按钮随机播放使用的相关图片
 
 extern HDC g_hdcOfMainWin;			//主窗口的设备句柄
 extern HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
@@ -155,4 +156,10 @@ void songListInit(HWND hParent, HINSTANCE hInstance);
 //绘制进度条
 	//persent 进度条的百分比  persent为98则表示98%
 void drawProgressBar(double persent);
+
+
+//切换播放按钮的图片
+	//hwnd 按钮句柄
+	//status 按钮的状态
+void switchPlayBtnBmp(HWND hwnd, int status);
 
