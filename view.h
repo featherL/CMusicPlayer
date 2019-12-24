@@ -14,12 +14,14 @@
 */
 
 //各种位图资源
-extern ButtonBmp* g_playBtnBmp;
-extern ButtonBmp* g_playBtnBmp2;
-extern ButtonBmp* g_nextBtnBmp;
-extern ButtonBmp* g_prevBtnBmp;
-extern ButtonBmp* g_xBtnBmp;
-extern ButtonBmp* g_modeBtnBmp;
+extern ButtonBmp* g_playBtnBmp;	//播放按钮的相关图片
+extern ButtonBmp* g_playBtnBmp2;	//暂停按钮的相关图片
+extern ButtonBmp* g_prevBtnBmp;	//上一首按钮的相关图片
+extern ButtonBmp* g_xBtnBmp;		//退出按钮的相关图片
+extern ButtonBmp* g_modeBtnBmpCur; //模式按钮的当前使用的一套相关图片
+extern ButtonBmp* g_modeBtnBmp1;	//模式按钮顺序播放使用的相关图片
+extern ButtonBmp* g_modeBtnBmp2;	//模式按钮循环播放使用的相关图片
+extern ButtonBmp* g_modeBtnBmp3;	//模式按钮随机播放使用的相关图片
 
 extern HDC g_hdcOfMainWin;			//主窗口的设备句柄
 extern HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
