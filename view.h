@@ -14,8 +14,9 @@
 */
 
 //各种位图资源
-extern ButtonBmp* g_playBtnBmp;
-extern ButtonBmp* g_playBtnBmp2;
+extern ButtonBmp* g_playBtnBmpCur;		//播放按钮的当前使用的一套图片
+extern ButtonBmp* g_playBtnBmp1;		//播放按钮的没有播放时的一套图片
+extern ButtonBmp* g_playBtnBmp2;		//播放按钮播放时的一套图片
 extern ButtonBmp* g_nextBtnBmp;
 extern ButtonBmp* g_prevBtnBmp;
 extern ButtonBmp* g_xBtnBmp;
@@ -147,4 +148,10 @@ void songListInit(HWND hParent, HINSTANCE hInstance);
 //绘制进度条
 	//persent 进度条的百分比  persent为98则表示98%
 void drawProgressBar(double persent);
+
+
+//切换播放按钮的图片
+	//hwnd 按钮句柄
+	//status 按钮的状态
+void switchPlayBtnBmp(HWND hwnd, int status);
 
