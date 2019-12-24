@@ -58,3 +58,12 @@ int playMusic(WORD deviceId);
 //播放下一首音乐
 	//成功返回1，否则返回0
 int playNext();
+
+//设置播放模式
+	//mode 模式
+void setMode(int mode);
+
+//获得当前播放模式
+	//返回值为播放模式
+int getMode();
+

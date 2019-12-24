@@ -4,6 +4,7 @@
 static MusicNode* g_headOfList = NULL;			//所有歌曲的链表的头指针
 static MusicNode* g_headOfPlaying = NULL;		//播放队列链表的头指针
 static MusicNode* g_curNode = NULL;			//当前正在播放的歌曲
+static int g_mode = MODE_ORDER;					//初始为顺序播放模式
 static int g_status = STATUS_STOP;				//当前的状态
 
 //释放头指针指向的链表的所有节点
@@ -30,7 +31,7 @@ void freeList(MusicNode** list)
 	//deviceId 设备id
 int playMusic(WORD deviceId)
 {
-	MusicNode* cur = g_headOfList;
+	MusicNode* cur;
 	int flag = 0;
 	cur = g_headOfPlaying;
 	do
@@ -39,10 +40,8 @@ int playMusic(WORD deviceId)
 			flag = 1;
 			break;
 		}
-		
 		cur = cur->next;
 	} while (cur != g_headOfPlaying);
-	
 	if(flag == 1){
 		MCI_PLAY_PARMS mciPlay;
 		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
@@ -157,3 +156,16 @@ int playNext()
 
 	return 0;
 }
+
+//设置播放模式
+void setMode(int mode)
+{
+	g_mode = mode;
+}
+
+//获得当前模式
+int getMode()
+{
+	return g_mode;
+}
+
