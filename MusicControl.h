@@ -50,3 +50,22 @@ int getStatus();
 //播放音乐
 	//deviceId 设备id
 int playMusic(WORD deviceId);
+
+//设置播放模式
+	//mode 模式
+void setMode(int mode);
+
+//获得当前播放模式
+	//返回值为播放模式
+int getMode();
+
+
+
+
+
+
+
+
+
+
+
