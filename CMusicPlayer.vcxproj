@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="control.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="MusicControl.h" />
     <ClInclude Include="MyButton.h" />
     <ClInclude Include="view.h" />

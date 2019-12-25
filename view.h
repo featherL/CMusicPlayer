@@ -49,6 +49,7 @@ extern HWND g_hSongList;			//歌曲列表的句柄
 #define WINDOW_HEIGHT 600
 
 //主窗口图标
+#define WINDOW_ICON L"icon.ico"
 
 //用于拖动窗口的顶部区域的高度
 #define MOVE_WINDOW_HEIGHT 64
