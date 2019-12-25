@@ -39,6 +39,7 @@ extern HDC g_hdcOfMainWin;			//主窗口的设备句柄
 extern HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
 extern HBITMAP g_hBitmap;			//用来贴图的内存区域
 extern HWND g_hWin;					//主窗口句柄
+extern HWND g_hPlayBtn;            //播放按钮的句柄
 extern HWND g_hSongList;			//歌曲列表的句柄
 
 
@@ -46,6 +47,8 @@ extern HWND g_hSongList;			//歌曲列表的句柄
 //主窗口的大小
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 600
+
+//主窗口图标
 
 //用于拖动窗口的顶部区域的高度
 #define MOVE_WINDOW_HEIGHT 64

@@ -234,10 +234,32 @@ int playNext()
 
 	if (cur->next != NULL)
 	{
-		cur = cur->next;
-		MCI_PLAY_PARMS mciPlay;
-		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
-		{
+        int mode = g_allModes[g_modeIndex];  //当前播放模式
+        if (mode == MODE_RANDOWM)
+        { //随机播放
+            int step = rand() % 10 + 1;     //随机生成一个1到10内的数,用于决定下一首歌曲是哪首
+            for (int i = 0; i < step; i++) 
+            {  //移动到要播放的歌曲对应的节点
+                cur = cur->next;       
+            }
+        }
+        else 
+        {  //顺序播放和随机播放都是直接取下一个节点
+            cur = cur->next;
+        }
+
+		
+        if (mode == MODE_ORDER && cur == g_headOfList)
+        {  //顺序播放模式，如果回到头节点则不再播放
+            g_status = STATUS_STOP;     //设置状态为停止
+            return 0;
+        }
+
+        MCI_PLAY_PARMS mciPlay;
+        
+        //停止当前歌曲播放，切换另一首歌曲播放
+		if(stopCurrentMusic() && 0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
+		{   //播放成功
 			g_curNode = cur;
 			return 1;
 		}
@@ -253,16 +275,30 @@ int playPrev()
 {
 	MusicNode* cur = g_curNode;            //获取当前的结点指针
 
-
 	if (cur->pre != NULL)
 	{
-		cur = cur->pre;
-		MCI_PLAY_PARMS mciPlay;
-		if (0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
-		{
-			g_curNode = cur;
-			return 1;
-		}
+        int mode = g_allModes[g_modeIndex];  //当前播放模式
+        if (mode == MODE_RANDOWM)
+        { //随机播放
+            int step = rand() % 10 + 1;     //随机生成一个1到10内的数,用于决定下一首歌曲是哪首
+            for (int i = 0; i < step; i++)
+            {  //移动到要播放的歌曲对应的节点
+                cur = cur->pre;
+            }
+        }
+        else
+        {  //顺序播放和随机播放都是直接取上一个节点
+            cur = cur->pre;
+        }
+
+        MCI_PLAY_PARMS mciPlay;
+
+        //停止当前歌曲播放，切换另一首歌曲播放
+        if (stopCurrentMusic() && 0 == mciSendCommand(cur->deviceId, MCI_PLAY, 0, (DWORD)&mciPlay))
+        {   //播放成功
+            g_curNode = cur;
+            return 1;
+        }
 	}
 
 

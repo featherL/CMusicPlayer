@@ -7,7 +7,7 @@
 #include <Shlwapi.h> 
 #pragma comment(lib,"shlwapi.lib")
 
-//标准库，要使用malloc函数
+//标准库，要使用malloc和rand函数
 #include <stdlib.h>
 
 //mci接口

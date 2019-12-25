@@ -15,6 +15,7 @@ HDC g_hdcOfMainWin;			//主窗口的设备句柄
 HDC g_hBuffOfMainWin;		//用来缓冲的设备环境
 HBITMAP g_hBitmap;			//用来贴图的内存区域
 HWND g_hWin;				//主窗口句柄
+HWND g_hPlayBtn;            //播放按钮的句柄
 HWND g_hSongList;			//歌曲列表的句柄
 
 

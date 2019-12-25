@@ -249,6 +249,10 @@ void winOnNotify(HWND hWin, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				stopCurrentMusic();
 				playMusic(id); 
+
+                //切换按钮状态
+                int status = getStatus();
+                switchPlayBtnBmp(g_hPlayBtn, status);
 			}
 			else
 			{ //单击只更改g_select
@@ -364,7 +368,7 @@ LRESULT modeBtnHandler(HWND hwnd, int code)
 		//切换播放模式，并返回切换后的模式代表的值
 		int mode = switchMode();
 
-		//切换按钮的图片
+		//切换模式按钮的图片
 		switchModeBtnBmp(hwnd, mode);
 	}
 
@@ -384,6 +388,10 @@ LRESULT nextBtnHandler(HWND hwnd, int code)
 		{ //先停止当前歌曲的播放
 			//播放下一首歌
 			playNext();
+
+            //更新播放按钮的状态
+            int status = getStatus();
+            switchPlayBtnBmp(g_hPlayBtn, status);
 		}
 		else
 		{ //停止失败
@@ -410,6 +418,9 @@ LRESULT prevBtnHandler(HWND hwnd, int code)
 		{ //先停止当前歌曲的播放
 			//播放上一首歌
 			playPrev();
+            //更新播放按钮的状态
+            int status = getStatus();
+            switchPlayBtnBmp(g_hPlayBtn, status);
 		}
 		else
 		{ //停止失败
